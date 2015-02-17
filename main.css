@@ -23,13 +23,13 @@ footer
 /*ID Selectors, HTML IDs*/
 #log 
 {
-  position: relative;
+  position: fixed;
   background-color: #34495E;
   color: #95A5A6;
-  width: 90%;
-  margin-top: 74%;
-  margin-left: auto;
-  margin-right: auto;
+  width: auto;
+  left: 10px;
+  right: 10px;
+  bottom: 49px;
   height: 20px;
   padding: 10px;
   font-weight: thin;
