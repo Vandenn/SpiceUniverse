@@ -1,0 +1,63 @@
+/**
+ * SPICE UNIVERSE CSS
+ */
+
+/*Element Selectors*/
+body
+{
+  font-family: 'Raleway', sans-serif;
+}
+
+footer
+{
+  position: fixed;
+  background-color: #333333;
+  color: white;
+  width: 100%;
+  bottom: 0px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+/*ID Selectors, HTML IDs*/
+#log 
+{
+  position: fixed;
+  background-color: #eee;
+  color: #333;
+  width: 100%;
+  bottom: 39px;
+  height: 20px;
+  padding: 10px;
+  font-weight: thin;
+}
+
+#buttonAreaDiv
+{
+  width: 60%;
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/*JAVASCRIPT/JQUERY CLASSES*/
+.actionButton
+{
+  background-color: white;
+  border: 1px solid #333333;
+  color: #333333;
+  font: 'Raleway', sans-serif;
+  transition: ease-in 0.25s;
+}
+
+.actionButton:focus
+{
+  outline: 0;
+}
+
+.actionButton:hover
+{
+  background-color: #333;
+  color: white;
+}
