@@ -2,6 +2,8 @@
 logStatus("You're in a dark alley.");
 $('#buttonAreaDiv')
   .append("<button type=\"button\" class=\"actionButton\" id=\"btn_begForSpice\"> Beg for Spice </button>");
+$('#buttonAreaDiv')
+  .append("</br><br><button type=\"button\" class=\"actionButton\" id=\"btn_store\"> Store </button>");
 
 /**
  * Event to handle when the button for begging
