@@ -22,20 +22,33 @@ footer
   font-weight: 400;
 }
 
-footer-var2
+header
 {
   position: fixed;
-  background-color: #7F8C8D;
+  background-color: #333;
   color: #ECF0F1;
   width: auto;
-  left: 10px;
-  right: 10px;
-  bottom: 0px;
-  padding: 10px;
+  left: 0px;
+  right: 0px;
+  top: 0px;
   font-weight: 400;
+  text-align: right;
 }
 
 /*ID Selectors, HTML IDs*/
+#resourceList
+{
+  margin: 0;
+  padding: 10px;
+  list-style-type: none;
+}
+
+#resourceList li
+{
+  display: inline;
+  padding: .2em 1em;
+}
+
 #log 
 {
   overflow: auto;
@@ -45,8 +58,8 @@ footer-var2
   width: auto;
   left: 10px;
   right: 10px;
-  bottom: 49px;
-  height: 20px;	
+  bottom: 10px;
+  height: 40px;	
   padding: 10px;
 }
 
@@ -62,8 +75,8 @@ footer-var2
   width: auto;
   left: 10px;
   right: 10px;
-  bottom: 49px;
-  height: 20px;	
+  bottom: 10px;
+  height: 40px;	
   padding: 10px;
   pointer-events: none;
 }
