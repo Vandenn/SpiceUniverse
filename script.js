@@ -27,5 +27,6 @@ $('#btn_begForSpice').on('click', function(){
  */
 function logStatus(string)
 {
-  $('#log').text(string);
+  $('#log').append("<span class=\"log_text\">" + string + "<br></span>");
+  			$("#log").animate({ scrollTop: $('#log')[0].scrollHeight}, 100);
 }

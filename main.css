@@ -19,12 +19,26 @@ footer
   right: 0px;
   bottom: 0px;
   padding: 10px;
-  font-weight: 700;
+  font-weight: 400;
+}
+
+footer-var2
+{
+  position: fixed;
+  background-color: #7F8C8D;
+  color: #ECF0F1;
+  width: auto;
+  left: 10px;
+  right: 10px;
+  bottom: 0px;
+  padding: 10px;
+  font-weight: 400;
 }
 
 /*ID Selectors, HTML IDs*/
 #log 
 {
+  overflow: auto;
   position: fixed;
   background-color: #34495E;
   color: #95A5A6;
@@ -36,10 +50,28 @@ footer
   padding: 10px;
 }
 
+#log::-webkit-scrollbar { 
+    display: none; 
+}
+
+#log-overlay 
+{
+  position: fixed;
+  background-color: transparent;
+  box-shadow: inset 0 0 10px 5px #34495E;
+  width: auto;
+  left: 10px;
+  right: 10px;
+  bottom: 49px;
+  height: 20px;	
+  padding: 10px;
+  pointer-events: none;
+}
+
 #buttonAreaDiv
 {
   width: 60%;
-  margin-top: 10%;
+  margin-top: 5%;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -48,21 +80,27 @@ footer
 /*JAVASCRIPT/JQUERY CLASSES*/
 .actionButton
 {
-  background-color: #ECF0F1;
   border: 1px solid #ECF0F1;
-  box-shadow: inset 0 0 0 1px #2C3E50;
-  color: #2C3E50;
+  background-color: transparent;
+  color: #ECF0F1;
   font-family: 'Raleway', sans-serif;
-  transition: ease-in 0.25s;
+  transition: 0.3s;
 }
 
 .actionButton:focus
 {
-  outline: 0;
+  outline: 0; 
 }
 
 .actionButton:hover
 {
-  background-color: #2C3E50;
-  color: #ECF0F1;
+  background-color: #ECF0F1;
+  box-shadow: inset 0 0 0 1px #2C3E50;
+  color: #2C3E50;
+  cursor: pointer;
+}
+
+.actionButton:active
+{
+  background-color: #BDC3C7;  
 }
