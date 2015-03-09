@@ -12,8 +12,20 @@
     HEAD
   -->
   <head>
+		<link rel="shortcut icon" href="favicon.ico" />
+		<!--
+			Engine Design inspired by A Dark Room
+			adarkroom.doublespeakgames.com
+		-->
     <!--jQuery-->
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
+		<script type="text/javascript" src="jquery-2.1.1.js"></script>
+		<script src="scripts/button.js"></script>
+		<script src="scripts/chapter.js"></script>
+		<script src="scripts/chapter1.js"></script>
+		<script src="scripts/chapterHandler.js"></script>
+		<script src="scripts/eventLog.js"></script>
+		<script src="scripts/events.js"></script>
     <script src="scripts/script.js"></script>
     <!--Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,100' rel='stylesheet' type='text/css'>
@@ -26,5 +38,17 @@
     BODY
   -->
   <body>
+		<header>
+			<ul id="resourceList"> 
+				<li> Salt: <span id="val_salt">0</span>g </li> 
+				<li> Pepper: <span id="val_pepper">0</span>g </li> 
+				<li> Cumin: <span id="val_cumin">0</span>g </li> 
+			</ul> 
+		</header>
+		<main>
+			<div id = "buttonAreaDiv"></div>
+		</main>
+		<div id = "log"></div>
+		<div id = "log-overlay"></div>
   </body>
 </html>
