@@ -9,6 +9,7 @@ $(function(){
   $('#buttonAreaDiv')
     .append("<button type=\"button\" class=\"actionButton\" id=\"btn_begForSpice\"> Beg for Spice </button>");
 
+  $('#resourceList li').eq(0).css({'opacity':0});
   $('#resourceList li').eq(1).hide();
   $('#resourceList li').eq(2).hide();
 
@@ -30,6 +31,11 @@ $(function(){
       logStatus(begSuccess[val_rand-1]);
       cur_salt = cur_salt + val_rand;
       $('#val_salt').text(cur_salt);
+      /*Show salt if transparent*/
+      if($('#resourceList li').eq(0).css("opacity") == 0)
+      {
+        $('#resourceList li').eq(0).css({'opacity':1});
+      }
     }
     else
       logStatus(begFail[val_rand-1]);
