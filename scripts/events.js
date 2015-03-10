@@ -5,12 +5,40 @@ var events = {
 		params is an object that passes data to be included in the event
 		text: text in event
 		id: event id
+		buttons: button list
 	*/
-	init: function(params)
+	create: function(params)
 	{
-		var obj = $("<div>");
+		var objText = $("<div>")
+										.addClass("eventDialogTextDiv");
+		var objButtons = $("<div>")
+										.addClass("eventDialogButtonDiv");
+		var obj = $("<div>")
+								.addClass("eventDialog")
+								.append(objText)
+								.append(objButtons);
 								
-		if(params.text) obj.text(params.text);
+		if(params.text) objText.text(params.text);
 		if(params.id) obj.attr("id", params.id);
+		if(params.buttons)
+		{
+			for(var i = 0; i < params.buttons.length; i++)
+			{
+				objButtons.append(params.buttons[i]);
+			}
+		}
+		
+		$("button").not("#eventDialogButtonDiv button").attr("disabled", "disabled");
+		
+		return obj;
+	},
+	
+	/**
+		id: event id
+	*/
+	remove: function(id)
+	{
+		$("button").not("#eventDialogButtonDiv button").removeAttr("disabled");
+		$("#" + id).remove();
 	}
 };
