@@ -156,3 +156,8 @@ header
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.titleFormat
+{
+	text-align: center;
+}

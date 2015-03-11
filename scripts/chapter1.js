@@ -1,6 +1,8 @@
 chapter[0] = {
 	init: function(params)
 	{
+		uisetup.buttonArea();
+	
 		$('#buttonAreaDiv')
 			.append(new button.create({
 				text: "Beg for Spice",
@@ -47,6 +49,7 @@ chapter[0] = {
 		/*Steal probability*/
 		if(Math.floor(Math.random() * 101) < 75 && cur_salt > 20)
 		{
+			$('#val_salt').text("0");
 			chapter[0].chap1events.thiefSteal();
 		}
 	},
@@ -97,6 +100,7 @@ chapter[0] = {
 					{
 						eventLog.logStatus("You stab the thief.");
 						events.remove("evt_chaseThief");
+						chapter[0].chap1events.gangRep(true);
 					}
 				})
 			);
@@ -107,6 +111,7 @@ chapter[0] = {
 					{
 						eventLog.logStatus("You chase and tackle the thief.");
 						events.remove("evt_chaseThief");
+						chapter[0].chap1events.gangRep(false);
 					}
 				})
 			);
@@ -114,6 +119,48 @@ chapter[0] = {
 				.append(new events.create({
 					text: "You chase the thief! How do you stop him?",
 					id: "evt_chaseThief",
+					buttons: button_array
+				}));
+		},
+		/*Check if player stabbed the thief.*/
+		gangRep: function(didStab)
+		{
+			var evtText = "";
+			button_array = [];
+			button_array.push(
+				new button.create({
+					text: "Join Group",
+					func: function()
+					{
+						eventLog.logStatus("You join the gang.");
+						events.remove("evt_gangRep");
+						chapterHandler.switchChapter(1);
+					}
+				})
+			);
+			button_array.push(
+				new button.create({
+					text: "Think About Offer",
+					func: function()
+					{
+						eventLog.logStatus("You say you'll think about it, but they gag you and force you to join.");
+						events.remove("evt_gangRep");
+						chapterHandler.switchChapter(1);
+					}
+				})
+			);
+			
+			if(didStab) evtText = "You were approached by the local gang. Their leader approaches you. \"You gut grit, kid. Consider this an invitation to our gang.\", says their leader. You lose all your salt but gain reputation.";
+			else 
+			{
+				evtText = "You were approached by the local gang. Their leader approaches you. \"Not bad, but you could have stabbed him. Anyway, consider this an invitation to our gang.\", says their leader. You get back 15g of salt.";
+				$('#val_salt').text("15");
+			}
+			
+			$('body')
+				.append(new events.create({
+					text: evtText,
+					id: "evt_gangRep",
 					buttons: button_array
 				}));
 		}

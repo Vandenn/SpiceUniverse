@@ -6,7 +6,7 @@ var chapterHandler = {
 	
 	switchChapter: function(chapterNumber)
 	{
-		$("main").remove(".");
+		$("main").empty();
 		chapter[chapterNumber].init();
 	}
 };
