@@ -160,4 +160,21 @@ header
 .titleFormat
 {
 	text-align: center;
+  color: #ECF0F1;
+}
+
+.roomButtonDiv
+{
+  position: fixed;
+  width: 20%;
+  height: 75%;
+  margin-top: -10%;
+  background-color: #333333;
+}
+
+.roomContentDiv
+{
+  width: 100%;
+  height: 100%;
+  margin-top: 5%;
 }

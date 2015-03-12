@@ -3,6 +3,7 @@
 		init: function(params)
 		{
 			chapterHandler.init();
+			uisetup.init();
 		}
 	}
 })();

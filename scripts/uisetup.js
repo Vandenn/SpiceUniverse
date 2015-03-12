@@ -1,7 +1,16 @@
 var uisetup = {
+	init: function()
+	{
+		/* Remove comment when official release
+		$('#resourceList li').eq(0).css({'opacity':0});*/
+		$('#resourceList li').eq(1).hide();
+		$('#resourceList li').eq(2).hide();
+	},
+	
 	buttonArea: function(params)
 	{
-		$("main").append("<div>").attr("id", "buttonAreaDiv");
+		var obj = $("<div>").attr("id", "buttonAreaDiv");
+		return obj;
 	},
 	/**
 		params passed to the title
@@ -16,6 +25,20 @@ var uisetup = {
 		if(params.titleClass) obj.addClass(params.titleClass);
 		else obj.addClass("titleFormat");
 		
-		$("main").append(obj);
+		return obj;
+	},
+	/**
+		params passed to div
+		divClass: class to be set to the div
+		divId: id of the div
+	*/
+	createDiv: function(params)
+	{
+		var obj = $("<div>");
+
+		if(params.divClass) obj.addClass(params.divClass);
+		if(params.divId) obj.attr("id", params.divId);
+
+		return obj;
 	}
 };
