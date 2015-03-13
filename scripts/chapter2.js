@@ -7,6 +7,7 @@ chapter[1] = {
 		}));
 		rooms.switchRoom(chapter[1].chap2rooms, "Boss Office");
 		chapter[1].createRoomButtons();
+		chapter[1].chap2events.autoIncrement();
 	},
 	
 	createRoomButtons: function()
@@ -134,7 +135,7 @@ chapter[1] = {
 							{
 								eventLog.logStatus(events.stealFromPedestrian_success[Math.floor(Math.random() * events.stealFromPedestrian_success.length)]);
 								var cur_salt = parseInt($('#val_salt').text()); 
-								cur_salt = cur_salt + Math.floor(Math.random() * 5);
+								cur_salt = cur_salt + Math.floor(Math.random() * 10 + 10);
 								$('#val_salt').text(cur_salt);
 								var cur_rep = parseInt($('#val_reputation').text()); 
 								cur_rep = cur_rep + Math.floor(Math.random() * 15 + 10);
@@ -308,7 +309,33 @@ chapter[1] = {
 	},
 
 	chap2events: {
-		
+		autoIncrement: function()
+		{
+			button_array = [];
+			button_array.push(
+				new button.create({
+					text: "Okay",
+					func: function()
+					{
+						eventLog.logStatus("You start getting salt regularly. You now also have a gang reputation.");
+						$('#resourceList li').eq(3).show();
+						events.remove("evt_autoIncrement");
+						saltIncrement = setInterval(function() 
+							{
+								var cur_salt = parseInt($('#val_salt').text()); 
+								cur_salt = cur_salt + 1;
+								$('#val_salt').text(cur_salt);
+							}, 10000);
+					}
+				})
+			);
+			$('body')
+				.append(new events.create({
+					text: "Welcome to the gang! Well, you're here whether you like it or not anyway. Talk to the boss for advice and more information. Right now, you start earning salt over time. Enjoy the dough! You also now start earning reputation. This will get you access to more jobs and gang-related perks.",
+					id: "evt_autoIncrement",
+					buttons: button_array
+				}));
+		},
 	},
 
 	chap2data: {
