@@ -1,7 +1,7 @@
 var chapterHandler = {
 	init: function(params)
 	{
-		chapter[1].init();
+		chapter[0].init();
 	},
 	
 	switchChapter: function(chapterNumber)
