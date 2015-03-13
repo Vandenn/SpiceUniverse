@@ -109,15 +109,28 @@ chapter[1] = {
 				$('.roomContentDiv').append(uisetup.pageTitle({
 					text: "Jobs"
 				}));
-				$('.roomContentDiv').append(uisetup.buttonArea());
 
-				$('#buttonAreaDiv')
+				$('.roomContentDiv').append(new uisetup.createDiv({
+					divClass: "jobsDiv",
+					divId: "chap2_jobs_div"
+				}));
+				$('.jobsDiv').append(new uisetup.createDiv({
+					divClass: "jobsImgDiv",
+					divId: "chap2_jobs_img_div"
+				}));
+				$('.jobsDiv').append(new uisetup.createDiv({
+					divClass: "jobsListDiv",
+					divId: "chap2_jobs_list_div"
+				}));
+				$('.jobsImgDiv').append("<img class=\"jobsImg\">");
+				
+				$('.jobsListDiv')
 					.append(new button.create({
 						text: "Job: Steal From Pedestrian",
 						id: "btn_jobs_stealFromPedestrian"
 					})).append("<br />");
 
-				$('#buttonAreaDiv')
+				$('.jobsListDiv')
 					.append(new button.create({
 						text: "Job: Recruit Local Potentials",
 						id: "btn_jobs_recruitLocalPotentials"
@@ -180,10 +193,6 @@ chapter[1] = {
 					divId: "chap2_black_market_div"
 				}));
 				$('.blackMarketDiv').append(new uisetup.createDiv({
-					divClass: "blackMarketImgDiv",
-					divId: "chap2_black_market_img_div"
-				}));
-				$('.blackMarketDiv').append(new uisetup.createDiv({
 					divClass: "blackMarketDescDiv",
 					divId: "chap2_black_market_desc_div"
 				}));
@@ -192,7 +201,6 @@ chapter[1] = {
 					divClass: "blackMarketItemsDiv",
 					divId: "chap2_black_market_items_div"
 				}));
-				$('.blackMarketImgDiv').append("<img class=\"blackMarketImg\">");
 				$('.blackMarketDescDiv').css("right", 20 + $('.blackMarketItemsDiv').width());
 				$('.blackMarketDescDiv').append(new uisetup.createDiv({
 					divClass: "blackMarketDescName",
