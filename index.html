@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <!--
   Spice Universe
   WEBAPPS S17
@@ -6,20 +5,33 @@
   Livelo, Evan Dennison
   Yao, John Paul S.
 -->
+<!DOCTYPE HTML>
 <html>
   
   <!--
     HEAD
   -->
   <head>
+		<link rel="shortcut icon" href="favicon.ico" />
+		<!--
+			Engine Design inspired by A Dark Room
+			adarkroom.doublespeakgames.com
+		-->
     <!--jQuery-->
-    <script src = "//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-    </script>
-    <script src = "script.js">
-    </script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script src="scripts/button.js"></script>
+		<script src="scripts/chapter.js"></script>
+		<script src="scripts/chapter1.js"></script>
+		<script src="scripts/chapter2.js"></script>
+		<script src="scripts/chapterHandler.js"></script>
+		<script src="scripts/eventLog.js"></script>
+		<script src="scripts/events.js"></script>
+		<script src="scripts/rooms.js"></script>
+    <script src="scripts/script.js"></script>
+		<script src="scripts/uisetup.js"></script>
     <!--Fonts-->
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,700,100' rel='stylesheet' type='text/css'>
-    <link href='main.css' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,100' rel='stylesheet' type='text/css'>
+    <link href='style/main.css' rel='stylesheet' type='text/css'>
     <!--Title-->
     <title>Spice Universe</title>
   </head>
@@ -28,12 +40,16 @@
     BODY
   -->
   <body>
-    <div id = 'buttonAreaDiv'> 
-    </div>
-    <div id='log'> 
-    </div>
-    <footer>
-      Salt: <span id='val_salt'>0</span>g
-    </footer>
+		<header>
+			<ul id="resourceList"> 
+				<li> Salt: <span id="val_salt">0</span>g </li> 
+				<li> Pepper: <span id="val_pepper">0</span>g </li> 
+				<li> Cumin: <span id="val_cumin">0</span>g </li> 
+			</ul> 
+		</header>
+		<main>
+		</main>
+		<div id = "log"></div>
+		<div id = "log-overlay"></div>
   </body>
 </html>
