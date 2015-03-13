@@ -127,13 +127,44 @@ chapter[1] = {
 				$('.jobsListDiv')
 					.append(new button.create({
 						text: "Job: Steal From Pedestrian",
-						id: "btn_jobs_stealFromPedestrian"
+						id: "btn_jobs_stealFromPedestrian",
+						func: function()
+						{
+							if(Math.floor(Math.random() * 101) < 80)
+							{
+								eventLog.logStatus(events.stealFromPedestrian_success[Math.floor(Math.random() * events.stealFromPedestrian_success.length)]);
+								var cur_salt = parseInt($('#val_salt').text()); 
+								cur_salt = cur_salt + Math.floor(Math.random() * 5);
+								$('#val_salt').text(cur_salt);
+								var cur_rep = parseInt($('#val_reputation').text()); 
+								cur_rep = cur_rep + Math.floor(Math.random() * 15 + 10);
+								$('#val_reputation').text(cur_rep);
+							}
+							else
+							{
+								eventLog.logStatus(events.stealFromPedestrian_fail[Math.floor(Math.random() * events.stealFromPedestrian_fail.length)]);
+							}
+						}
 					})).append("<br />");
 
 				$('.jobsListDiv')
 					.append(new button.create({
 						text: "Job: Recruit Local Potentials",
-						id: "btn_jobs_recruitLocalPotentials"
+						id: "btn_jobs_recruitLocalPotentials",
+						func: function()
+						{
+							if(Math.floor(Math.random() * 101) < 60)
+							{
+								eventLog.logStatus(events.recruitLocalPotentials_success[Math.floor(Math.random() * events.recruitLocalPotentials_success.length)]);
+								var cur_rep = parseInt($('#val_reputation').text()); 
+								cur_rep = cur_rep + Math.floor(Math.random() * 30 + 20);
+								$('#val_reputation').text(cur_rep);
+							}
+							else
+							{
+								eventLog.logStatus(events.recruitLocalPotentials_fail[Math.floor(Math.random() * events.recruitLocalPotentials_fail.length)]);
+							}
+						}
 					})).append("<br />");
 			}
 		},

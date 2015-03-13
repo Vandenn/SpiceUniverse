@@ -5,6 +5,8 @@ var uisetup = {
 		$('#resourceList li').eq(0).css({'opacity':0});*/
 		$('#resourceList li').eq(1).hide();
 		$('#resourceList li').eq(2).hide();
+		/* Remove comment when official release
+		$('#resourceList li').eq(3).hide();*/
 	},
 	
 	buttonArea: function(params)
