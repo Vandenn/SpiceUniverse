@@ -18,7 +18,7 @@ chapter[1] = {
 			}));
 		$('#chap2_room_button_div')
 			.append(new button.create({
-				text: "Boss Office",
+				text: "The Boss' Office",
 				id: "btn_room_bossOffice",
 				func: function()
 				{
@@ -63,7 +63,7 @@ chapter[1] = {
 			create: function()
 			{
 				$('.roomContentDiv').append(uisetup.pageTitle({
-					text: "Boss Office"
+					text: "The Boss' Office"
 				}));
 				$('.roomContentDiv').append(uisetup.buttonArea());
 				
@@ -131,7 +131,41 @@ chapter[1] = {
 				$('.roomContentDiv').append(uisetup.pageTitle({
 					text: "Inventory"
 				}));
-				$('.roomContentDiv').append(uisetup.buttonArea());
+				$('.roomContentDiv').append(new uisetup.createDiv({
+					divClass: "inventoryDiv",
+					divId: "chap2_inventory_div"
+				}));
+				$('.inventoryDiv').append(new uisetup.createDiv({
+					divClass: "inventoryListDiv",
+					divId: "chap2_inventory_list_div"
+				}));
+				$('.inventoryDiv').append(new uisetup.createDiv({
+					divClass: "inventoryDescDiv",
+					divId: "chap2_inventory_desc_div"
+				}));
+				$('.inventoryDescDiv').hide();
+				
+				$('.inventoryListDiv').append(new button.create({
+						text: "Item 1",
+						id: "btn_store_item1",
+						func: chapter[1].showInventoryItemDesc("Item 1", "Item 1 Desc"),
+					})).append("<br />");
+				$('.inventoryListDiv').append(new button.create({
+						text: "Item 2",
+						id: "btn_store_item2",
+						func: chapter[1].showInventoryItemDesc("Item 2", "Item 2 Desc"),
+					})).append("<br />");
+				
+				$('.inventoryDescDiv').append(new uisetup.createDiv({
+					divClass: "inventoryDescName",
+					divId: "chap2_inventory_desc_name"
+				}));
+				$('.inventoryDescDiv').append(new uisetup.createDiv({
+					divClass: "inventoryDescDesc",
+					divId: "chap2_inventory_desc_desc"
+				}));
+				$('.inventoryDescName').append("<h2> <span id=\"inventoryItemName\"></h2>");
+				$('.inventoryDescDesc').append("<span id=\"inventoryItemDesc\">");
 			}
 		},
 		'Store': {
@@ -141,9 +175,97 @@ chapter[1] = {
 				$('.roomContentDiv').append(uisetup.pageTitle({
 					text: "Black Market"
 				}));
-				$('.roomContentDiv').append(uisetup.buttonArea());
+				$('.roomContentDiv').append(new uisetup.createDiv({
+					divClass: "blackMarketDiv",
+					divId: "chap2_black_market_div"
+				}));
+				$('.blackMarketDiv').append(new uisetup.createDiv({
+					divClass: "blackMarketImgDiv",
+					divId: "chap2_black_market_img_div"
+				}));
+				$('.blackMarketDiv').append(new uisetup.createDiv({
+					divClass: "blackMarketDescDiv",
+					divId: "chap2_black_market_desc_div"
+				}));
+				$('.blackMarketDescDiv').hide();
+				$('.blackMarketDiv').append(new uisetup.createDiv({
+					divClass: "blackMarketItemsDiv",
+					divId: "chap2_black_market_items_div"
+				}));
+				$('.blackMarketImgDiv').append("<img class=\"blackMarketImg\">");
+				$('.blackMarketDescDiv').css("right", 20 + $('.blackMarketItemsDiv').width());
+				$('.blackMarketDescDiv').append(new uisetup.createDiv({
+					divClass: "blackMarketDescName",
+					divId: "chap2_black_market_desc_name"
+				}));
+				$('.blackMarketDescDiv').append(new uisetup.createDiv({
+					divClass: "blackMarketDescPrice",
+					divId: "chap2_black_market_desc_price"
+				}));
+				$('.blackMarketDescDiv').append(new uisetup.createDiv({
+					divClass: "blackMarketDescDesc",
+					divId: "chap2_black_market_desc_desc"
+				}));
+				$('.blackMarketDescName').append("<h2> <span id=\"storeItemName\"></h2>");
+				$('.blackMarketDescPrice').append("<span id=\"storeItemPrice\">");
+				$('.blackMarketDescDesc').append("<span id=\"storeItemDesc\">");
+				
+				$('.blackMarketItemsDiv').append(new button.create({
+						text: "Item 1",
+						id: "btn_store_item1",
+						func: chapter[1].showStoreItemDesc("Item 1", "10 salt", "Item 1 Desc"),
+					})).append("<br />");
+				$('.blackMarketItemsDiv').append(new button.create({
+						text: "Item 2",
+						id: "btn_store_item2",
+						func: chapter[1].showStoreItemDesc("Item 2", "15 salt", "Item 2 Desc"),
+					})).append("<br />");
 			}
 		}
+	},
+	
+	showInventoryItemDesc: function(name, desc){
+		func = function() {
+			$('#inventoryItemName').text(name);
+			$('#inventoryItemDesc').text("Description: " + desc);
+			
+			if($('.inventoryDescDiv').is(':visible')) {
+				$(this).removeClass('active');
+				$('.inventoryDescDiv').hide("slide", {direction: "left"});
+			}
+			else {
+				$(this).addClass('active');
+				$('.inventoryDescDiv').show("slide", {direction: "left"});
+			}
+		
+		}
+		
+		return func;
+	},
+	
+	showStoreItemDesc: function(name, price, desc){
+		func = function() {
+			$('#storeItemName').text(name);
+			$('#storeItemPrice').text("Price: " + price);
+			$('#storeItemDesc').text("Description: " + desc);
+			
+			if($('.blackMarketDescDiv').is(':visible')) {
+				$(this).removeClass('active');
+				$('.blackMarketDescDiv').hide("slide", {direction: "right"});
+				$('#storeItemName button').remove();
+			}
+			else {
+				$(this).addClass('active');
+				$('.blackMarketDescDiv').show("slide", {direction: "right"});
+				$('#storeItemName').append(new button.create({
+						text: "Buy " + name,
+						id: "btn_store_buy",
+					}));
+			}
+		
+		}
+		
+		return func;
 	},
 
 	chap2events: {
