@@ -1,10 +1,22 @@
 var uisetup = {
 	init: function()
 	{
+		if(global.devMode) uisetup.testingInit();
+		else uisetup.officialInit();
+	},
+
+	officialInit: function()
+	{
 		$('#resourceList li').eq(0).css({'opacity':0});
 		$('#resourceList li').eq(1).hide();
 		$('#resourceList li').eq(2).hide();
 		$('#resourceList li').eq(3).hide();
+	},
+
+	testingInit: function()
+	{
+		$('#resourceList li').eq(1).hide();
+		$('#resourceList li').eq(2).hide();
 	},
 	
 	buttonArea: function(params)

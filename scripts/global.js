@@ -1,1 +1,5 @@
-var saltIncrement = null;
+var global = {
+	saltIncrement: null,
+	battleInterval: null,
+	devMode: true
+};

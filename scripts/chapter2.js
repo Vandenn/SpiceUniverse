@@ -125,48 +125,7 @@ chapter[1] = {
 				}));
 				$('.jobsImgDiv').append("<img class=\"jobsImg\">");
 				
-				$('.jobsListDiv')
-					.append(new button.create({
-						text: "Job: Steal From Pedestrian",
-						id: "btn_jobs_stealFromPedestrian",
-						func: function()
-						{
-							if(Math.floor(Math.random() * 101) < 80)
-							{
-								eventLog.logStatus(events.stealFromPedestrian_success[Math.floor(Math.random() * events.stealFromPedestrian_success.length)]);
-								var cur_salt = parseInt($('#val_salt').text()); 
-								cur_salt = cur_salt + Math.floor(Math.random() * 10 + 10);
-								$('#val_salt').text(cur_salt);
-								var cur_rep = parseInt($('#val_reputation').text()); 
-								cur_rep = cur_rep + Math.floor(Math.random() * 15 + 10);
-								$('#val_reputation').text(cur_rep);
-							}
-							else
-							{
-								eventLog.logStatus(events.stealFromPedestrian_fail[Math.floor(Math.random() * events.stealFromPedestrian_fail.length)]);
-							}
-						}
-					})).append("<br />");
-
-				$('.jobsListDiv')
-					.append(new button.create({
-						text: "Job: Recruit Local Potentials",
-						id: "btn_jobs_recruitLocalPotentials",
-						func: function()
-						{
-							if(Math.floor(Math.random() * 101) < 60)
-							{
-								eventLog.logStatus(events.recruitLocalPotentials_success[Math.floor(Math.random() * events.recruitLocalPotentials_success.length)]);
-								var cur_rep = parseInt($('#val_reputation').text()); 
-								cur_rep = cur_rep + Math.floor(Math.random() * 30 + 20);
-								$('#val_reputation').text(cur_rep);
-							}
-							else
-							{
-								eventLog.logStatus(events.recruitLocalPotentials_fail[Math.floor(Math.random() * events.recruitLocalPotentials_fail.length)]);
-							}
-						}
-					})).append("<br />");
+				chapter[1].loadJobs();
 			}
 		},
 		'Inventory': {
@@ -190,17 +149,8 @@ chapter[1] = {
 				}));
 				$('.inventoryDescDiv').hide();
 				
-				$('.inventoryListDiv').append(new button.create({
-						text: "Item 1",
-						id: "btn_store_item1",
-						func: chapter[1].showInventoryItemDesc("Item 1", "Item 1 Desc"),
-					})).append("<br />");
-				$('.inventoryListDiv').append(new button.create({
-						text: "Item 2",
-						id: "btn_store_item2",
-						func: chapter[1].showInventoryItemDesc("Item 2", "Item 2 Desc"),
-					})).append("<br />");
-				
+				chapter[1].populateInventory();
+
 				$('.inventoryDescDiv').append(new uisetup.createDiv({
 					divClass: "inventoryDescName",
 					divId: "chap2_inventory_desc_name"
@@ -249,25 +199,91 @@ chapter[1] = {
 				$('.blackMarketDescName').append("<h2> <span id=\"storeItemName\"></h2>");
 				$('.blackMarketDescPrice').append("<span id=\"storeItemPrice\">");
 				$('.blackMarketDescDesc').append("<span id=\"storeItemDesc\">");
-				
-				$('.blackMarketItemsDiv').append(new button.create({
-						text: "Item 1",
-						id: "btn_store_item1",
-						func: chapter[1].showStoreItemDesc("Item 1", "10 salt", "Item 1 Desc"),
-					})).append("<br />");
-				$('.blackMarketItemsDiv').append(new button.create({
-						text: "Item 2",
-						id: "btn_store_item2",
-						func: chapter[1].showStoreItemDesc("Item 2", "15 salt", "Item 2 Desc"),
-					})).append("<br />");
+				chapter[1].populateStore();
 			}
 		}
 	},
 	
-	showInventoryItemDesc: function(name, desc){
+	loadJobs: function()
+	{
+		$('.jobsListDiv').empty();
+		$('.jobsListDiv').append(new chapter[1].chap2jobs[0]()).append("<br />");
+		$('.jobsListDiv').append(new chapter[1].chap2jobs[1]()).append("<br />");
+		for(var i = 2; i < chapter[1].chap2jobs.length; i++)
+		{
+			if(parseInt($('#val_reputation').text()) > chapter[1].chap2data.repNeededForJobs[i-2])
+			{
+				$('.jobsListDiv').append(new chapter[1].chap2jobs[i]()).append("<br />");
+			}
+		}
+	},
+
+	populateInventory: function()
+	{
+		if(playerItems.length > 0)
+		{
+			for(var i = 0; i < playerItems.length; i++)
+			{
+				$('.inventoryListDiv').append(new button.create({
+					text: playerItems[i].name ? playerItems[i].name : "Unknown",
+					id: "btn_inventory_item" + i.toString(),
+					func: chapter[1].showInventoryItemDesc(playerItems[i]),
+				})).append("<br />");
+			}
+		}
+		else
+		{
+			if(chapter[1].chap2data.roomsUnlocked[2] == true)
+			{
+				$('.inventoryListDiv').append(new button.create({
+						text: "You have no items. Go to the store?",
+						id: "btn_inventory_noitem",
+						func: function()
+						{
+							rooms.switchRoom(chapter[1].chap2rooms, "Store");
+						},
+					})).append("<br />");
+			}
+			else
+			{
+				$('.inventoryListDiv').append(new button.create({
+						text: "You have no items.",
+						id: "btn_inventory_noitem"
+					})).append("<br />");
+			}
+		}
+	},
+
+	populateStore: function()
+	{
+		for(var i = 0; i < items.length; i++)
+		{
+			for(var j = 0; j < items[i].length; j++)
+			{
+				if(!items[i][j].available)
+				{
+					if(parseInt($('#val_reputation').text()) > items[i][j].req)
+					{
+						items[i][j].available = true;
+					}
+				}
+
+				if(items[i][j].available)
+				{
+					$('.blackMarketItemsDiv').append(new button.create({
+							text: items[i][j].name ? items[i][j].name : "Unknown",
+							id: "btn_store_item" + i.toString() + "_" + j.toString(),
+							func: chapter[1].showStoreItemDesc(items[i][j]),
+						})).append("<br />");
+				}
+			}
+		}
+	},
+
+	showInventoryItemDesc: function(item){
 		func = function() {
-			$('#inventoryItemName').text(name);
-			$('#inventoryItemDesc').text("Description: " + desc);
+			$('#inventoryItemName').text(item.name ? item.name : "Unknown");
+			$('#inventoryItemDesc').text("Description: " + item.desc ? item.desc : "N/A");
 			
 			if($('.inventoryDescDiv').is(':visible')) {
 				$(this).removeClass('active');
@@ -283,11 +299,30 @@ chapter[1] = {
 		return func;
 	},
 	
-	showStoreItemDesc: function(name, price, desc){
+	showStoreItemDesc: function(item){
 		func = function() {
-			$('#storeItemName').text(name);
-			$('#storeItemPrice').text("Price: " + price);
-			$('#storeItemDesc').text("Description: " + desc);
+			var salt_price = 0;
+			var pepper_price = 0;
+			var cumin_price = 0;
+			var priceString = "";
+			/*Code to properly format price*/
+			salt_price = item.price ? item.price : 0;
+			if(salt_price > constants.pepperConversion)
+			{
+				pepper_price = salt_price / constants.pepperConversion;
+				salt_price = salt_price % constants.pepperConversion;
+			}
+			if(pepper_price > constants.cuminConversion)
+			{
+				cumin_price = pepper_price / constants.cuminConversion;
+				pepper_price = pepper_price % constants.cuminConversion;
+			}
+			priceString = (cumin_price == 0 ? "" : (cumin_price.toString() + " cumin, ")) +
+						(pepper_price == 0 ? "" : (pepper_price.toString() + " pepper, ")) +
+						(salt_price == 0 ? "" : (salt_price.toString() + " salt"));
+			$('#storeItemName').text(item.name ? item.name : "Unknown");
+			$('#storeItemPrice').text("Price: " + priceString);
+			$('#storeItemDesc').text("Description: " + item.desc ? item.desc : "N/A");
 			
 			if($('.blackMarketDescDiv').is(':visible')) {
 				$(this).removeClass('active');
@@ -298,8 +333,38 @@ chapter[1] = {
 				$(this).addClass('active');
 				$('.blackMarketDescDiv').show("slide", {direction: "right"});
 				$('#storeItemName').append(new button.create({
-						text: "Buy " + name,
+						text: item.name ? "Buy " + item.name : "Error",
 						id: "btn_store_buy",
+						func: function()
+						{
+							var isLower = false;
+							for(var i = 0; i < playerItems.length; i++)
+							{
+								/*check if an item in the player's inventory is the same type as the current item*/
+								if(playerItems[i].type == item.type)
+								{
+									/*If item being bought is lower or equal to current player item*/
+									if(playerItems[i].req <= item.req)
+									{
+										isLower = true;
+										eventLog.logStatus("You already have a better item!");
+										break;
+									}
+								}
+							}
+							if(!isLower)
+							{
+								if(parseInt($('#val_salt').text()) > item.price)
+								{
+									eventLog.logStatus("You now have the " + item.name + "!");
+									playerItems.push(item);
+								}
+								else
+								{
+									eventLog.logStatus("You do not have enough spice.");
+								}
+							}
+						}
 					}));
 			}
 		
@@ -320,12 +385,12 @@ chapter[1] = {
 						eventLog.logStatus("You start getting salt regularly. You now also have a gang reputation.");
 						$('#resourceList li').eq(3).show();
 						events.remove("evt_autoIncrement");
-						saltIncrement = setInterval(function() 
+						global.saltIncrement = setInterval(function() 
 							{
 								var cur_salt = parseInt($('#val_salt').text()); 
 								cur_salt = cur_salt + 1;
 								$('#val_salt').text(cur_salt);
-							}, 10000);
+							}, 5000);
 					}
 				})
 			);
@@ -336,9 +401,66 @@ chapter[1] = {
 					buttons: button_array
 				}));
 		},
+		battle1: function()
+		{
+
+		}
 	},
 
 	chap2data: {
-		roomsUnlocked: [false, false, false] //Jobs, Inventory, Store
-	}
+		roomsUnlocked: [false, false, false], //Jobs, Inventory, Store
+		repNeededForJobs: [500] //rep needed for unlockable jobs
+	},
+
+	chap2jobs: [
+		function() { return new button.create({
+			text: "Job: Steal From Pedestrian",
+			id: "btn_jobs_stealFromPedestrian",
+			func: function()
+			{
+				if(Math.floor(Math.random() * 101) < 80)
+				{
+					eventLog.logStatus(events.stealFromPedestrian_success[Math.floor(Math.random() * events.stealFromPedestrian_success.length)]);
+					var cur_salt = parseInt($('#val_salt').text()); 
+					cur_salt = cur_salt + Math.floor(Math.random() * 10 + 10);
+					$('#val_salt').text(cur_salt);
+					var cur_rep = parseInt($('#val_reputation').text()); 
+					cur_rep = cur_rep + Math.floor(Math.random() * 15 + 10);
+					$('#val_reputation').text(cur_rep);
+					chapter[1].loadJobs();
+				}
+				else
+				{
+					eventLog.logStatus(events.stealFromPedestrian_fail[Math.floor(Math.random() * events.stealFromPedestrian_fail.length)]);
+				}
+			}
+		}); },
+		function() { return new button.create({
+			text: "Job: Recruit Local Potentials",
+			id: "btn_jobs_recruitLocalPotentials",
+			func: function()
+			{
+				if(Math.floor(Math.random() * 101) < 60)
+				{
+					eventLog.logStatus(events.recruitLocalPotentials_success[Math.floor(Math.random() * events.recruitLocalPotentials_success.length)]);
+					var cur_rep = parseInt($('#val_reputation').text()); 
+					cur_rep = cur_rep + Math.floor(Math.random() * 30 + 20);
+					$('#val_reputation').text(cur_rep);
+					chapter[1].loadJobs();
+				}
+				else
+				{
+					eventLog.logStatus(events.recruitLocalPotentials_fail[Math.floor(Math.random() * events.recruitLocalPotentials_fail.length)]);
+				}
+			}
+		}); },
+		function() { return new button.create({
+			text: "Job: Battle Local Gangs",
+			id: "btn_jobs_battleLocalGangs",
+			func: function()
+			{
+				chap2events.battle1();
+			}
+		}); }
+	]
 };
