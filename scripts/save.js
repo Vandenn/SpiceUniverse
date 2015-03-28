@@ -3,6 +3,7 @@ var save = {
 	salt: 0,
 	pepper: 0, 
 	cumin: 0,
-	reputation: 0,
-	chap2rooms: [false, false, false]
+	chap2rooms: [false, false, false],
+	gun: -1,
+	meds: -1
 };
