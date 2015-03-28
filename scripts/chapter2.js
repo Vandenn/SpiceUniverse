@@ -307,7 +307,7 @@ chapter[1] = {
 			salt_price = item.price ? item.price : 0;
 
 			$('#storeItemName').text(item.name ? item.name : "Unknown");
-			$('#storeItemPrice').text("Price: " + salt_price.toString() + " salt");
+			$('#storeItemPrice').text("Price: " + salt_price.toString() + "g salt");
 			$('#storeItemDesc').text("Description: " + item.desc ? item.desc : "N/A");
 			
 			if($('.blackMarketDescDiv').is(':visible')) {
