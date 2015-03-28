@@ -457,7 +457,7 @@ chapter[1] = {
 			id: "btn_jobs_battleLocalGangs",
 			func: function()
 			{
-				chap2events.battle1();
+				chapter[1].chap2events.battle1();
 			}
 		}); }
 	]
