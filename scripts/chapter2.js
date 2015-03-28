@@ -392,7 +392,16 @@ chapter[1] = {
 		},
 		battle1: function()
 		{
-
+			$('#resourceList li').eq(1).show();
+			global.pepperIncrement = setInterval(function() 
+							{
+								var cur_pepper = parseInt($('#val_pepper').text());
+								if(cur_pepper < 100)
+								{
+									cur_pepper = cur_pepper + 1;
+									$('#val_pepper').text(cur_pepper);
+								}
+							}, 2000);
 		}
 	},
 
