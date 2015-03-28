@@ -157,6 +157,11 @@ header
 	color: #ECF0F1;
 }
 
+.eventDialogVisualsDiv
+{
+	margin: 10px;
+}
+
 .eventDialogButtonDiv
 {
 	margin: 10px;
