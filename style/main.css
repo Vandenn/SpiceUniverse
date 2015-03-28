@@ -136,6 +136,16 @@ header
 	cursor: default;
 }
 
+.battlePlayerDiv
+{
+	float: left;
+}
+
+.battleEnemyDiv
+{
+	float: left;
+}
+
 .eventDialog
 {
 	position: absolute;
@@ -145,20 +155,21 @@ header
 	bottom: 0;
 	background-color: #4E5E6B;
 	width: 40%;
-	height: 20%;
+	height: 30%;
 	z-index: 2;
 	margin: auto;
 }
 
 .eventDialogTextDiv
 {
-	height: 65%;
+	height: 55%;
 	margin: 10px;
 	color: #ECF0F1;
 }
 
 .eventDialogVisualsDiv
 {
+	height: 20%;
 	margin: 10px;
 }
 

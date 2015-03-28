@@ -45,6 +45,9 @@ var events = {
 		enemy_health: enemy health
 		enemy_damage: enemy damage
 		enemy_speed: enemy speed
+		enemy_name: enemy name
+		success: success function
+		failure: failure function
 	*/
 	createBattle: function(params)
 	{
@@ -54,23 +57,58 @@ var events = {
 						.addClass("eventDialogVisualsDiv");
 		var objButtons = $("<div>")
 						.addClass("eventDialogButtonDiv");
+		var playerDiv = $("<div>")
+						.addClass("battlePlayerDiv");
+		var enemyDiv = $("<div>")
+						.addClass("battleEnemyDiv");
 		var obj = $("<div>")
 						.addClass("eventDialog")
 						.append(objText)
 						.append(objVisuals)
 						.append(objButtons);
+		var battleId = params.id ? params.id : "battle_event";
 								
+		objVisuals.append(playerDiv).append(enemyDiv);
+
 		if(params.text) objText.text(params.text);
-		if(params.id) obj.attr("id", params.id);
+		obj.attr("id", battleId);
+
+		playerDiv.append("<span>Player</span><br />");
+		playerDiv.append("<span id = \"player_health\">" + parseInt($('#val_pepper').text()) + "</span> pepper <br />");
+		enemyDiv.append("<span>" + (params.enemy_name ? params.enemy_name : "Enemy") + "</span><br />");
+		enemyDiv.append("<span id = \"enemy_health\">" + (params.enemy_health ? params.enemy_health : 100).toString() + "</span> pepper <br />");
+
 		global.battleInterval = setInterval(function(){
-			
+			var ph = parseInt($('#player_health').text());
+			ph -= params.enemy_damage ? params.enemy_damage : 10;
+			if(ph <= 0) 
+			{
+				ph = 0;
+				if(params.failure) params.failure();
+				events.remove(battleId);
+			}
+			else
+			{
+				$('#player_health').text(ph);
+			}
 		}, params.enemy_speed ? params.enemy_speed : 2000);
 		
 		objButtons.append(new button.create({
 			text: "Punch",
 			func: function()
 			{
-				
+				var eh = parseInt($('#enemy_health').text());
+				eh -= 10;
+				if(eh <= 0) 
+				{
+					eh = 0;
+					if(params.success) params.success();
+					events.remove(battleId);
+				}
+				else
+				{
+					$('#enemy_health').text(eh);
+				}
 			}
 		}));
 		for(var i = 0; i < playerItems.length; i++)
@@ -82,7 +120,18 @@ var events = {
 						text: "Shoot",
 						func: function()
 						{
-							
+							var eh = parseInt($('#enemy_health').text());
+							eh -= playerItems[i].value;
+							if(eh <= 0) 
+							{
+								eh = 0;
+								if(params.success) params.success();
+								events.remove(battleId);
+							}
+							else
+							{
+								$('#enemy_health').text(eh);
+							}
 						}
 					}));
 					break;
@@ -91,7 +140,13 @@ var events = {
 						text: "Heal",
 						func: function()
 						{
-							
+							var ph = parseInt($('#player_health').text());
+							if(ph < constants.pepperMax)
+							{
+								ph += playerItems[i].value;
+								if(ph > constants.pepperMax) ph = constants.pepperMax;
+								$('#player_health').text(ph);
+							}
 						}
 					}));
 					break;

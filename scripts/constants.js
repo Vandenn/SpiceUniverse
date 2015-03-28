@@ -1,4 +1,3 @@
 var constants = {
-	pepperConversion: 1000,
-	cuminConversion: 1000
+	pepperMax: 100
 };

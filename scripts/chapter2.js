@@ -396,7 +396,7 @@ chapter[1] = {
 			global.pepperIncrement = setInterval(function() 
 							{
 								var cur_pepper = parseInt($('#val_pepper').text());
-								if(cur_pepper < 100)
+								if(cur_pepper < constants.pepperMax)
 								{
 									cur_pepper = cur_pepper + 1;
 									$('#val_pepper').text(cur_pepper);
@@ -404,11 +404,29 @@ chapter[1] = {
 							}, 2000);
 			$('body')
 				.append(new events.createBattle({
-					text: "You fight a gang.",
+					text: "You fight a rival gang member.",
 					id: "evt_battle1",
+					enemy_name: "Lowly Gangster",
 					enemy_health: 200,
 					enemy_damage: 10,
-					enemy_speed: 2000
+					enemy_speed: 2000,
+					success: function()
+					{
+						eventLog.logStatus("You have won!");
+						var cur_salt = parseInt($('#val_salt').text()); 
+						cur_salt = cur_salt + Math.floor(Math.random() * 50 + 50);
+						$('#val_salt').text(cur_salt);
+						var cur_cumin = parseInt($('#val_cumin').text()); 
+						cur_cumin = cur_cumin + Math.floor(Math.random() * 75 + 80);
+						$('#val_cumin').text(cur_cumin);
+						chapter[1].loadJobs();
+
+					},
+					failure: function()
+					{
+						eventLog.logStatus("You have lost.");
+						$('#val_pepper').text(0);
+					}
 				}));
 		}
 	},
