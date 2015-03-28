@@ -39,6 +39,67 @@ var events = {
 	},
 	
 	/**
+		params is an object that passes data to be included in the battle
+		text: text in battle
+		id: battle id
+		enemy: enemy health
+	*/
+	createBattle: function(params)
+	{
+		var objText = $("<div>")
+						.addClass("eventDialogTextDiv");
+		var objVisuals = $("<div>")
+						.addClass("eventDialogVisualsDiv");
+		var objButtons = $("<div>")
+						.addClass("eventDialogButtonDiv");
+		var obj = $("<div>")
+						.addClass("eventDialog")
+						.append(objText)
+						.append(objVisuals)
+						.append(objButtons);
+								
+		if(params.text) objText.text(params.text);
+		if(params.id) obj.attr("id", params.id);
+		objButtons.append(new button.create({
+			text: "Punch",
+			func: function()
+			{
+				
+			}
+		}));
+		for(var i = 0; i < playerItems.length; i++)
+		{
+			switch(playerItems[i].type)
+			{
+				case itemType.gun:
+					objButtons.append(new button.create({
+						text: "Shoot",
+						func: function()
+						{
+							
+						}
+					}));
+					break;
+				case itemType.meds:
+					objButtons.append(new button.create({
+						text: "Heal",
+						func: function()
+						{
+							
+						}
+					}));
+					break;
+				default:
+					break;
+			}
+		}
+		
+		$("button").not("#eventDialogButtonDiv button").attr("disabled", "disabled");
+		
+		return obj;
+	},
+	
+	/**
 		id: event id
 	*/
 	remove: function(id)
