@@ -42,7 +42,9 @@ var events = {
 		params is an object that passes data to be included in the battle
 		text: text in battle
 		id: battle id
-		enemy: enemy health
+		enemy_health: enemy health
+		enemy_damage: enemy damage
+		enemy_speed: enemy speed
 	*/
 	createBattle: function(params)
 	{
@@ -60,6 +62,10 @@ var events = {
 								
 		if(params.text) objText.text(params.text);
 		if(params.id) obj.attr("id", params.id);
+		global.battleInterval = setInterval(function(){
+			
+		}, params.enemy_speed ? params.enemy_speed : 2000);
+		
 		objButtons.append(new button.create({
 			text: "Punch",
 			func: function()
