@@ -211,7 +211,7 @@ chapter[1] = {
 		$('.jobsListDiv').append(new chapter[1].chap2jobs[1]()).append("<br />");
 		for(var i = 2; i < chapter[1].chap2jobs.length; i++)
 		{
-			if(parseInt($('#val_reputation').text()) > chapter[1].chap2data.repNeededForJobs[i-2])
+			if(parseInt($('#val_cumin').text()) > chapter[1].chap2data.cuminNeededForJobs[i-2])
 			{
 				$('.jobsListDiv').append(new chapter[1].chap2jobs[i]()).append("<br />");
 			}
@@ -262,7 +262,7 @@ chapter[1] = {
 			{
 				if(!items[i][j].available)
 				{
-					if(parseInt($('#val_reputation').text()) > items[i][j].req)
+					if(parseInt($('#val_cumin').text()) > items[i][j].req)
 					{
 						items[i][j].available = true;
 					}
@@ -302,26 +302,12 @@ chapter[1] = {
 	showStoreItemDesc: function(item){
 		func = function() {
 			var salt_price = 0;
-			var pepper_price = 0;
-			var cumin_price = 0;
-			var priceString = "";
+
 			/*Code to properly format price*/
 			salt_price = item.price ? item.price : 0;
-			if(salt_price > constants.pepperConversion)
-			{
-				pepper_price = salt_price / constants.pepperConversion;
-				salt_price = salt_price % constants.pepperConversion;
-			}
-			if(pepper_price > constants.cuminConversion)
-			{
-				cumin_price = pepper_price / constants.cuminConversion;
-				pepper_price = pepper_price % constants.cuminConversion;
-			}
-			priceString = (cumin_price == 0 ? "" : (cumin_price.toString() + " cumin, ")) +
-						(pepper_price == 0 ? "" : (pepper_price.toString() + " pepper, ")) +
-						(salt_price == 0 ? "" : (salt_price.toString() + " salt"));
+
 			$('#storeItemName').text(item.name ? item.name : "Unknown");
-			$('#storeItemPrice').text("Price: " + priceString);
+			$('#storeItemPrice').text("Price: " + salt_price.toString() + " salt");
 			$('#storeItemDesc').text("Description: " + item.desc ? item.desc : "N/A");
 			
 			if($('.blackMarketDescDiv').is(':visible')) {
@@ -358,10 +344,13 @@ chapter[1] = {
 								{
 									eventLog.logStatus("You now have the " + item.name + "!");
 									playerItems.push(item);
+									var cur_salt = parseInt($('#val_salt').text()); 
+									cur_salt = cur_salt - item.price;
+									$('#val_salt').text(cur_salt);
 								}
 								else
 								{
-									eventLog.logStatus("You do not have enough spice.");
+									eventLog.logStatus("You do not have enough salt.");
 								}
 							}
 						}
@@ -382,7 +371,7 @@ chapter[1] = {
 					text: "Okay",
 					func: function()
 					{
-						eventLog.logStatus("You start getting salt regularly. You now also have a gang reputation.");
+						eventLog.logStatus("You start getting salt regularly. You now also have reputation in the form of cumin.");
 						$('#resourceList li').eq(3).show();
 						events.remove("evt_autoIncrement");
 						global.saltIncrement = setInterval(function() 
@@ -396,7 +385,7 @@ chapter[1] = {
 			);
 			$('body')
 				.append(new events.create({
-					text: "Welcome to the gang! Well, you're here whether you like it or not anyway. Talk to the boss for advice and more information. Right now, you start earning salt over time. Enjoy the dough! You also now start earning reputation. This will get you access to more jobs and gang-related perks.",
+					text: "Welcome to the gang! Well, you're here whether you like it or not anyway. Talk to the boss for advice and more information. Right now, you start earning salt over time. Enjoy the dough! You also now start earning reputation in the form of cumin. This will get you access to more jobs and gang-related perks.",
 					id: "evt_autoIncrement",
 					buttons: button_array
 				}));
@@ -409,7 +398,7 @@ chapter[1] = {
 
 	chap2data: {
 		roomsUnlocked: [false, false, false], //Jobs, Inventory, Store
-		repNeededForJobs: [500] //rep needed for unlockable jobs
+		cuminNeededForJobs: [500] //cumin needed for unlockable jobs
 	},
 
 	chap2jobs: [
@@ -424,9 +413,9 @@ chapter[1] = {
 					var cur_salt = parseInt($('#val_salt').text()); 
 					cur_salt = cur_salt + Math.floor(Math.random() * 10 + 10);
 					$('#val_salt').text(cur_salt);
-					var cur_rep = parseInt($('#val_reputation').text()); 
-					cur_rep = cur_rep + Math.floor(Math.random() * 15 + 10);
-					$('#val_reputation').text(cur_rep);
+					var cur_cumin = parseInt($('#val_cumin').text()); 
+					cur_cumin = cur_cumin + Math.floor(Math.random() * 15 + 10);
+					$('#val_cumin').text(cur_cumin);
 					chapter[1].loadJobs();
 				}
 				else
@@ -443,9 +432,9 @@ chapter[1] = {
 				if(Math.floor(Math.random() * 101) < 60)
 				{
 					eventLog.logStatus(events.recruitLocalPotentials_success[Math.floor(Math.random() * events.recruitLocalPotentials_success.length)]);
-					var cur_rep = parseInt($('#val_reputation').text()); 
-					cur_rep = cur_rep + Math.floor(Math.random() * 30 + 20);
-					$('#val_reputation').text(cur_rep);
+					var cur_cumin = parseInt($('#val_cumin').text()); 
+					cur_cumin = cur_cumin + Math.floor(Math.random() * 30 + 20);
+					$('#val_cumin').text(cur_cumin);
 					chapter[1].loadJobs();
 				}
 				else
