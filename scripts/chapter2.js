@@ -402,6 +402,14 @@ chapter[1] = {
 									$('#val_pepper').text(cur_pepper);
 								}
 							}, 2000);
+			$('body')
+				.append(new events.createBattle({
+					text: "You fight a gang.",
+					id: "evt_battle1",
+					enemy_health: 200,
+					enemy_damage: 10,
+					enemy_speed: 2000
+				}));
 		}
 	},
 
