@@ -211,7 +211,7 @@ chapter[1] = {
 		$('.jobsListDiv').append(new chapter[1].chap2jobs[1]()).append("<br />");
 		for(var i = 2; i < chapter[1].chap2jobs.length; i++)
 		{
-			if(parseInt($('#val_cumin').text()) > chapter[1].chap2data.cuminNeededForJobs[i-2])
+			if(parseInt($('#val_cumin').text()) >= chapter[1].chap2data.cuminNeededForJobs[i-2])
 			{
 				$('.jobsListDiv').append(new chapter[1].chap2jobs[i]()).append("<br />");
 			}
