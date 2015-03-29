@@ -84,6 +84,7 @@ var events = {
 			if(ph <= 0) 
 			{
 				ph = 0;
+				$('#val_pepper').text(ph);
 				if(params.failure) params.failure();
 				events.remove(battleId);
 			}
@@ -102,6 +103,7 @@ var events = {
 				if(eh <= 0) 
 				{
 					eh = 0;
+					$('#val_pepper').text(parseInt($('#player_health').text()));
 					if(params.success) params.success();
 					events.remove(battleId);
 				}
@@ -125,6 +127,7 @@ var events = {
 							if(eh <= 0) 
 							{
 								eh = 0;
+								$('#val_pepper').text(parseInt($('#player_health').text()));
 								if(params.success) params.success();
 								events.remove(battleId);
 							}
