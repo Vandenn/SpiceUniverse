@@ -74,9 +74,9 @@ var events = {
 		obj.attr("id", battleId);
 
 		playerDiv.append("<span>Player</span><br />");
-		playerDiv.append("<span id = \"player_health\">" + parseInt($('#val_pepper').text()) + "</span> pepper <br />");
+		playerDiv.append("<span id = \"player_health\">" + parseInt($('#val_pepper').text()) + "</span>/" + constants.pepperMax + " pepper <br />");
 		enemyDiv.append("<span>" + (params.enemy_name ? params.enemy_name : "Enemy") + "</span><br />");
-		enemyDiv.append("<span id = \"enemy_health\">" + (params.enemy_health ? params.enemy_health : 100).toString() + "</span> pepper <br />");
+		enemyDiv.append("<span id = \"enemy_health\">" + (params.enemy_health ? params.enemy_health : 100).toString() + "</span>/" + (params.enemy_health ? params.enemy_health : 100).toString() + " pepper <br />");
 
 		global.battleInterval = setInterval(function(){
 			var ph = parseInt($('#player_health').text());
