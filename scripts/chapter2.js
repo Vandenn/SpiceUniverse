@@ -53,9 +53,24 @@ chapter[1] = {
 					rooms.switchRoom(chapter[1].chap2rooms, "Store");
 				},
 			})).append("<br />");
-		if(chapter[1].chap2data.roomsUnlocked[0] == false) $('#btn_room_jobs').hide();
-		if(chapter[1].chap2data.roomsUnlocked[1] == false) $('#btn_room_inventory').hide();
-		if(chapter[1].chap2data.roomsUnlocked[2] == false) $('#btn_room_store').hide();
+		$('#chap2_room_button_div')
+			.append(new button.create({
+				text: "Map",
+				id: "btn_room_map",
+				func: function()
+				{
+					rooms.switchRoom(chapter[1].chap2rooms, "Map");
+				},
+			})).append("<br />");
+			chapter[1].refreshRooms();
+	},
+
+	refreshRooms: function()
+	{
+		if(chapter[1].chap2data.roomsUnlocked[0] == false) $('#btn_room_jobs').hide(); else $('#btn_room_jobs').show();
+		if(chapter[1].chap2data.roomsUnlocked[1] == false) $('#btn_room_inventory').hide(); else $('#btn_room_inventory').show();
+		if(chapter[1].chap2data.roomsUnlocked[2] == false) $('#btn_room_store').hide(); else $('#btn_room_store').show();
+		if(chapter[1].chap2data.roomsUnlocked[3] == false) $('#btn_room_map').hide(); else $('#btn_room_map').show();
 	},
 
 	chap2rooms: {
@@ -101,6 +116,16 @@ chapter[1] = {
 						eventLog.logStatus(events.noAdvice[Math.floor(Math.random() * events.noAdvice.length)]);
 					}
 				});
+			}
+		},
+		'Your Office': {
+			name: "Your Office",
+			create: function()
+			{
+				$('.roomContentDiv').append(uisetup.pageTitle({
+					text: "Your Office"
+				}));
+				$('.roomContentDiv').append(uisetup.buttonArea());
 			}
 		},
 		'Jobs': {
@@ -201,11 +226,21 @@ chapter[1] = {
 				$('.blackMarketDescDesc').append("<span id=\"storeItemDesc\">");
 				chapter[1].populateStore();
 			}
+		},
+		'Map': {
+			name: "Map",
+			create: function()
+			{
+				$('.roomContentDiv').append(uisetup.pageTitle({
+					text: "Map"
+				}));
+			}
 		}
 	},
 	
 	loadJobs: function()
 	{
+		chapter[1].becomeBoss();
 		$('.jobsListDiv').empty();
 		$('.jobsListDiv').append(new chapter[1].chap2jobs[0]()).append("<br />");
 		$('.jobsListDiv').append(new chapter[1].chap2jobs[1]()).append("<br />");
@@ -396,7 +431,7 @@ chapter[1] = {
 			global.pepperIncrement = setInterval(function() 
 							{
 								var cur_pepper = parseInt($('#val_pepper').text());
-								if(cur_pepper < constants.pepperMax)
+								if(cur_pepper < constants.pepperMax && global.battleInterval)
 								{
 									cur_pepper = cur_pepper + 1;
 									$('#val_pepper').text(cur_pepper);
@@ -404,10 +439,10 @@ chapter[1] = {
 							}, 2000);
 			$('body')
 				.append(new events.createBattle({
-					text: "You fight a rival gang member.",
+					text: events.battle1Text[Math.floor(Math.random() * events.battle1Text.length)],
 					id: "evt_battle1",
-					enemy_name: "Lowly Gangster",
-					enemy_health: 200,
+					enemy_name: events.battle1Enemy[Math.floor(Math.random() * events.battle1Enemy.length)],
+					enemy_health: 50,
 					enemy_damage: 10,
 					enemy_speed: 2000,
 					success: function()
@@ -432,8 +467,9 @@ chapter[1] = {
 	},
 
 	chap2data: {
-		roomsUnlocked: [false, false, false], //Jobs, Inventory, Store
-		cuminNeededForJobs: [500] //cumin needed for unlockable jobs
+		roomsUnlocked: [false, false, false, false], //Jobs, Inventory, Store, Map
+		cuminNeededForJobs: [500], //cumin needed for unlockable jobs
+		isBoss: false
 	},
 
 	chap2jobs: [
@@ -486,5 +522,41 @@ chapter[1] = {
 				chapter[1].chap2events.battle1();
 			}
 		}); }
-	]
+	],
+
+	becomeBoss: function()
+	{
+		if(parseInt($('#val_cumin').text()) >= constants.bossCumin && !chapter[1].chap2data.isBoss)
+		{
+			chapter[1].chap2data.isBoss = true;
+			chapter[1].chap2data.roomsUnlocked[3] = true;
+			for(var i = 0; i < chapter[1].chap2data.roomsUnlocked.length; i++)
+			{
+				chapter[1].chap2data.roomsUnlocked[i] = true;
+			}
+			chapter[1].refreshRooms();
+			button_array = [];
+			button_array.push(
+				new button.create({
+					text: "Nice!",
+					func: function()
+					{
+						eventLog.logStatus("You are now the boss!");
+						events.remove("evt_becomeBoss");
+					}
+				})
+			);
+			$('body')
+				.append(new events.create({
+					text: "You've now earned a lot of cumin! You are officially the boss of this gang! You now have access to the street map to try to take control of other gang sectors. Good luck, boss.",
+					id: "evt_becomeBoss",
+					buttons: button_array
+				}));
+			$("#btn_room_bossOffice").text("Your Office");
+			button.setClick("btn_room_bossOffice", function()
+			{
+				rooms.switchRoom(chapter[1].chap2rooms, "Your Office");
+			});
+		}
+	}
 };

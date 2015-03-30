@@ -6,6 +6,8 @@ var events = {
 	stealFromPedestrian_fail: ["You tried to steal but the pedestrian had nothing.", "You back off. He looks too scary.", "\"Get off you bum!\", said the pedestrian.", "Your footsteps were heard. You stop."],
 	recruitLocalPotentials_success: ["\"Sure thing, homie\", says the new recruit.", "The recruit nods as you lower your threatening voice.", "You blackmail the recruit successfully.", "\"This will be fun.\", he says."],
 	recruitLocalPotentials_fail: ["\"You seriously do not want to mess with me\". You back off.", "That person is part of another gang.", "Your voice cracked, the potential laughs and leaves.", "The tall man stares at you. You get the message and back off."],
+	battle1Text: ["You fight a lowly gang member", "A wild lowly gang member appears!", "Time to fight!", "Victory or death."],
+	battle1Enemy: ["Lowly Gangster", "Small-time Thief", "No-Good Novice Thug"],
 	/**
 		params is an object that passes data to be included in the event
 		text: text in event
@@ -86,6 +88,7 @@ var events = {
 				ph = 0;
 				$('#val_pepper').text(ph);
 				if(params.failure) params.failure();
+				clearInterval(global.battleInterval);
 				events.remove(battleId);
 			}
 			else
@@ -99,12 +102,13 @@ var events = {
 			func: function()
 			{
 				var eh = parseInt($('#enemy_health').text());
-				eh -= 10;
+				eh -= 1;
 				if(eh <= 0) 
 				{
 					eh = 0;
 					$('#val_pepper').text(parseInt($('#player_health').text()));
 					if(params.success) params.success();
+					clearInterval(global.battleInterval);
 					events.remove(battleId);
 				}
 				else
@@ -115,6 +119,7 @@ var events = {
 		}));
 		for(var i = 0; i < playerItems.length; i++)
 		{
+			var curr = i;
 			switch(playerItems[i].type)
 			{
 				case itemType.gun:
@@ -123,13 +128,13 @@ var events = {
 						func: function()
 						{
 							var eh = parseInt($('#enemy_health').text());
-							console.log(i);
-							eh -= playerItems[i].value;
+							eh -= playerItems[curr].value;
 							if(eh <= 0) 
 							{
 								eh = 0;
 								$('#val_pepper').text(parseInt($('#player_health').text()));
 								if(params.success) params.success();
+								clearInterval(global.battleInterval);
 								events.remove(battleId);
 							}
 							else
@@ -147,7 +152,7 @@ var events = {
 							var ph = parseInt($('#player_health').text());
 							if(ph < constants.pepperMax)
 							{
-								ph += playerItems[i].value;
+								ph += playerItems[curr].value;
 								if(ph > constants.pepperMax) ph = constants.pepperMax;
 								$('#player_health').text(ph);
 							}

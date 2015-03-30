@@ -26,6 +26,7 @@ var uisetup = {
 	/**
 		params passed to the title
 		text: title text
+		id: title id
 		titleClass: optional title class
 	*/
 	pageTitle: function(params)
@@ -34,6 +35,7 @@ var uisetup = {
 		
 		if(params.text) obj.text(params.text);
 		if(params.titleClass) obj.addClass(params.titleClass);
+		if(params.id) obj.attr("id", params.id);
 		else obj.addClass("titleFormat");
 		
 		return obj;
