@@ -41,12 +41,32 @@ header
   text-align: right;
 }
 
+header button
+{
+	
+}
+
 /*ID Selectors, HTML IDs*/
+#manageList
+{
+  margin: 0;
+  padding: 10px;
+  list-style-type: none;
+  float: left;
+}
+
+#manageList li
+{
+  display: inline;
+  padding: .2em .1em;
+}
+
 #resourceList
 {
   margin: 0;
   padding: 10px;
   list-style-type: none;
+  float: right;
 }
 
 #resourceList li
