@@ -123,6 +123,7 @@ var events = {
 						func: function()
 						{
 							var eh = parseInt($('#enemy_health').text());
+							console.log(i);
 							eh -= playerItems[i].value;
 							if(eh <= 0) 
 							{
