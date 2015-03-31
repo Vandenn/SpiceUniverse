@@ -340,13 +340,15 @@ chapter[1] = {
 						func: function()
 						{
 							var isLower = false;
+							var sameItemIndex = -1;
 							for(var i = 0; i < playerItems.length; i++)
 							{
 								/*check if an item in the player's inventory is the same type as the current item*/
 								if(playerItems[i].type == item.type)
 								{
+									sameItemIndex = i;
 									/*If item being bought is lower or equal to current player item*/
-									if(playerItems[i].req <= item.req)
+									if(playerItems[i].req >= item.req)
 									{
 										isLower = true;
 										eventLog.logStatus("You already have a better item!");
@@ -359,6 +361,7 @@ chapter[1] = {
 								if(parseInt($('#val_salt').text()) > item.price)
 								{
 									eventLog.logStatus("You now have the " + item.name + "!");
+									if (sameItemIndex != -1) playerItems.splice(sameItemIndex, 1);
 									playerItems.push(item);
 									var cur_salt = parseInt($('#val_salt').text()); 
 									cur_salt = cur_salt - item.price;
