@@ -53,15 +53,6 @@ chapter[1] = {
 					rooms.switchRoom(chapter[1].chap2rooms, "Store");
 				},
 			})).append("<br />");
-		$('#chap2_room_button_div')
-			.append(new button.create({
-				text: "Map",
-				id: "btn_room_map",
-				func: function()
-				{
-					rooms.switchRoom(chapter[1].chap2rooms, "Map");
-				},
-			})).append("<br />");
 			chapter[1].refreshRooms();
 	},
 
@@ -70,7 +61,6 @@ chapter[1] = {
 		if(chapter[1].chap2data.roomsUnlocked[0] == false) $('#btn_room_jobs').hide(); else $('#btn_room_jobs').show();
 		if(chapter[1].chap2data.roomsUnlocked[1] == false) $('#btn_room_inventory').hide(); else $('#btn_room_inventory').show();
 		if(chapter[1].chap2data.roomsUnlocked[2] == false) $('#btn_room_store').hide(); else $('#btn_room_store').show();
-		if(chapter[1].chap2data.roomsUnlocked[3] == false) $('#btn_room_map').hide(); else $('#btn_room_map').show();
 	},
 
 	chap2rooms: {
@@ -123,7 +113,7 @@ chapter[1] = {
 			create: function()
 			{
 				$('.roomContentDiv').append(uisetup.pageTitle({
-					text: "Your Office"
+					text: "Street Map"
 				}));
 				$('.roomContentDiv').append(uisetup.buttonArea());
 			}
@@ -227,15 +217,6 @@ chapter[1] = {
 				chapter[1].populateStore();
 			}
 		},
-		'Map': {
-			name: "Map",
-			create: function()
-			{
-				$('.roomContentDiv').append(uisetup.pageTitle({
-					text: "Map"
-				}));
-			}
-		}
 	},
 	
 	loadJobs: function()
@@ -467,7 +448,7 @@ chapter[1] = {
 	},
 
 	chap2data: {
-		roomsUnlocked: [false, false, false, false], //Jobs, Inventory, Store, Map
+		roomsUnlocked: [false, false, false], //Jobs, Inventory, Store
 		cuminNeededForJobs: [500], //cumin needed for unlockable jobs
 		isBoss: false
 	},
@@ -529,7 +510,6 @@ chapter[1] = {
 		if(parseInt($('#val_cumin').text()) >= constants.bossCumin && !chapter[1].chap2data.isBoss)
 		{
 			chapter[1].chap2data.isBoss = true;
-			chapter[1].chap2data.roomsUnlocked[3] = true;
 			for(var i = 0; i < chapter[1].chap2data.roomsUnlocked.length; i++)
 			{
 				chapter[1].chap2data.roomsUnlocked[i] = true;
