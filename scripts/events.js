@@ -159,6 +159,50 @@ var events = {
 						}
 					}));
 					break;
+                                case itemType.knife:
+					objButtons.append(new button.create({
+						text: "Stab",
+						func: function()
+						{
+							var eh = parseInt($('#enemy_health').text());
+							eh -= playerItems[curr].value;
+							if(eh <= 0) 
+							{
+								eh = 0;
+								$('#val_pepper').text(parseInt($('#player_health').text()));
+								if(params.success) params.success();
+								clearInterval(global.battleInterval);
+								events.remove(battleId);
+							}
+							else
+							{
+								$('#enemy_health').text(eh);
+							}
+						}
+					}));
+					break;
+                                case itemType.bomb:
+					objButtons.append(new button.create({
+						text: "Bomb",
+						func: function()
+						{
+							var eh = parseInt($('#enemy_health').text());
+							eh -= playerItems[curr].value;
+							if(eh <= 0) 
+							{
+								eh = 0;
+								$('#val_pepper').text(parseInt($('#player_health').text()));
+								if(params.success) params.success();
+								clearInterval(global.battleInterval);
+								events.remove(battleId);
+							}
+							else
+							{
+								$('#enemy_health').text(eh);
+							}
+						}
+					}));
+					break;
 				default:
 					break;
 			}
