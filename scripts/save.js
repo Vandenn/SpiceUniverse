@@ -7,5 +7,7 @@ var save = {
 	gun: -1,
 	meds: -1,
         knife: -1,
-        bomb: -1
+        bomb: -1,
+        isBoss: false,
+        defeatedBosses: [false, false, false]
 };
