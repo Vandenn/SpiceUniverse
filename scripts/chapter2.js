@@ -5,12 +5,29 @@ chapter[1] = {
 			divClass: "roomContentDiv",
 			divId: "chap2_room_content_div"
 		}));
-		rooms.switchRoom(chapter[1].chap2rooms, "Boss Office");
-		chapter[1].createRoomButtons();
-		chapter[1].chap2events.autoIncrement();
+		chapter[1].createRoomButtons(params);
+		chapter[1].chap2events.autoIncrement(params);
+
+		if(params.isLoad)
+		{
+			chapter[1].chap2data.roomsUnlocked = save.chap2rooms;
+			chapter[1].refreshRooms(params);
+
+			if(save.isBoss) chapter[1].becomeBoss(params);
+
+			chapter[1].chap2data.defeatedBosses = save.defeatedBosses;
+
+			if(save.gun > -1) playerItems.push(items[itemType.gun][save.gun]);
+			if(save.meds > -1) playerItems.push(items[itemType.meds][save.meds]);
+			if(save.knife > -1) playerItems.push(items[itemType.knife][save.knife]);
+			if(save.bomb > -1) playerItems.push(items[itemType.bomb][save.bomb]);
+		}
+		
+		if(chapter[1].chap2data.isBoss) rooms.switchRoom(chapter[1].chap2rooms, "Your Office");
+		else rooms.switchRoom(chapter[1].chap2rooms, "Boss Office");	
 	},
 	
-	createRoomButtons: function()
+	createRoomButtons: function(params)
 	{
 		$('main')
 			.append(new uisetup.createDiv({
@@ -53,10 +70,10 @@ chapter[1] = {
 					rooms.switchRoom(chapter[1].chap2rooms, "Store");
 				},
 			})).append("<br />");
-			chapter[1].refreshRooms();
+			chapter[1].refreshRooms(params);
 	},
 
-	refreshRooms: function()
+	refreshRooms: function(params)
 	{
 		if(chapter[1].chap2data.roomsUnlocked[0] == false) $('#btn_room_jobs').hide(); else $('#btn_room_jobs').show();
 		if(chapter[1].chap2data.roomsUnlocked[1] == false) $('#btn_room_inventory').hide(); else $('#btn_room_inventory').show();
@@ -219,9 +236,9 @@ chapter[1] = {
 		},
 	},
 	
-	loadJobs: function()
+	loadJobs: function(params)
 	{
-		chapter[1].becomeBoss();
+		chapter[1].becomeBoss(params);
 		$('.jobsListDiv').empty();
 		$('.jobsListDiv').append(new chapter[1].chap2jobs[0]()).append("<br />");
 		$('.jobsListDiv').append(new chapter[1].chap2jobs[1]()).append("<br />");
@@ -234,7 +251,7 @@ chapter[1] = {
 		}
 	},
 
-	populateInventory: function()
+	populateInventory: function(params)
 	{
 		if(playerItems.length > 0)
 		{
@@ -270,7 +287,7 @@ chapter[1] = {
 		}
 	},
 
-	populateStore: function()
+	populateStore: function(params)
 	{
 		for(var i = 0; i < items.length; i++)
 		{
@@ -382,45 +399,68 @@ chapter[1] = {
 	},
 
 	chap2events: {
-		autoIncrement: function()
+		autoIncrement: function(params)
 		{
-			button_array = [];
-			button_array.push(
-				new button.create({
-					text: "Okay",
-					func: function()
+			if(params.isLoad)
+			{
+				$('#resourceList li').eq(2).show();
+				global.saltIncrement = setInterval(function() 
+				{
+					var cur_salt = parseInt($('#val_salt').text()); 
+					cur_salt = cur_salt + 1;
+					$('#val_salt').text(cur_salt);
+				}, 5000);
+				$('#resourceList li').eq(1).show();
+				global.pepperIncrement = setInterval(function() 
+				{
+					var cur_pepper = parseInt($('#val_pepper').text());
+					if(cur_pepper < constants.pepperMax && global.battleInterval)
 					{
-						eventLog.logStatus("You start getting salt regularly. You now also have reputation in the form of cumin.");
-						$('#resourceList li').eq(3).show();
-						events.remove("evt_autoIncrement");
-						global.saltIncrement = setInterval(function() 
+						cur_pepper = cur_pepper + 1;
+						$('#val_pepper').text(cur_pepper);
+					}
+				}, 2000);
+			}
+			else
+			{
+				button_array = [];
+				button_array.push(
+					new button.create({
+						text: "Okay",
+						func: function()
+						{
+							eventLog.logStatus("You start getting salt regularly. You now also have reputation in the form of cumin.");
+							$('#resourceList li').eq(2).show();
+							events.remove("evt_autoIncrement");
+							global.saltIncrement = setInterval(function() 
 							{
 								var cur_salt = parseInt($('#val_salt').text()); 
 								cur_salt = cur_salt + 1;
 								$('#val_salt').text(cur_salt);
 							}, 5000);
-					}
-				})
-			);
-			$('body')
-				.append(new events.create({
-					text: "Welcome to the gang! Well, you're here whether you like it or not anyway. Talk to the boss for advice and more information. Right now, you start earning salt over time. Enjoy the dough! You also now start earning reputation in the form of cumin. This will get you access to more jobs and gang-related perks.",
-					id: "evt_autoIncrement",
-					buttons: button_array
-				}));
+						}
+					})
+				);
+				$('body')
+					.append(new events.create({
+						text: "Welcome to the gang! Well, you're here whether you like it or not anyway. Talk to the boss for advice and more information. Right now, you start earning salt over time. Enjoy the dough! You also now start earning reputation in the form of cumin. This will get you access to more jobs and gang-related perks.",
+						id: "evt_autoIncrement",
+						buttons: button_array
+					}));
+			}
 		},
-		battle1: function()
+		battle1: function(params)
 		{
 			$('#resourceList li').eq(1).show();
 			global.pepperIncrement = setInterval(function() 
-							{
-								var cur_pepper = parseInt($('#val_pepper').text());
-								if(cur_pepper < constants.pepperMax && global.battleInterval)
-								{
-									cur_pepper = cur_pepper + 1;
-									$('#val_pepper').text(cur_pepper);
-								}
-							}, 2000);
+			{
+				var cur_pepper = parseInt($('#val_pepper').text());
+				if(cur_pepper < constants.pepperMax && global.battleInterval)
+				{
+					cur_pepper = cur_pepper + 1;
+					$('#val_pepper').text(cur_pepper);
+				}
+			}, 2000);
 			$('body')
 				.append(new events.createBattle({
 					text: events.battle1Text[Math.floor(Math.random() * events.battle1Text.length)],
@@ -453,7 +493,8 @@ chapter[1] = {
 	chap2data: {
 		roomsUnlocked: [false, false, false], //Jobs, Inventory, Store
 		cuminNeededForJobs: [500], //cumin needed for unlockable jobs
-		isBoss: false
+		isBoss: false,
+		defeatedBosses: [false, false, false]
 	},
 
 	chap2jobs: [
@@ -508,7 +549,7 @@ chapter[1] = {
 		}); }
 	],
 
-	becomeBoss: function()
+	becomeBoss: function(params)
 	{
 		if(parseInt($('#val_cumin').text()) >= constants.bossCumin && !chapter[1].chap2data.isBoss)
 		{
@@ -517,24 +558,28 @@ chapter[1] = {
 			{
 				chapter[1].chap2data.roomsUnlocked[i] = true;
 			}
-			chapter[1].refreshRooms();
-			button_array = [];
-			button_array.push(
-				new button.create({
-					text: "Nice!",
-					func: function()
-					{
-						eventLog.logStatus("You are now the boss!");
-						events.remove("evt_becomeBoss");
-					}
-				})
-			);
-			$('body')
-				.append(new events.create({
-					text: "You've now earned a lot of cumin! You are officially the boss of this gang! You now have access to the street map to try to take control of other gang sectors. Good luck, boss.",
-					id: "evt_becomeBoss",
-					buttons: button_array
-				}));
+			chapter[1].refreshRooms(params);
+
+			if(!params.isLoad)
+			{
+				button_array = [];
+				button_array.push(
+					new button.create({
+						text: "Nice!",
+						func: function()
+						{
+							eventLog.logStatus("You are now the boss!");
+							events.remove("evt_becomeBoss");
+						}
+					})
+				);
+				$('body')
+					.append(new events.create({
+						text: "You've now earned a lot of cumin! You are officially the boss of this gang! You now have access to the street map to try to take control of other gang sectors. Good luck, boss.",
+						id: "evt_becomeBoss",
+						buttons: button_array
+					}));
+			}
 			$("#btn_room_bossOffice").text("Your Office");
 			button.setClick("btn_room_bossOffice", function()
 			{

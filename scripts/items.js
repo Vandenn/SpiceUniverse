@@ -1,8 +1,8 @@
 var itemType = {
 	gun: 0,
 	meds: 1,
-        knife: 2,
-        bomb: 3
+    knife: 2,
+    bomb: 3
 };
 
 var items = [

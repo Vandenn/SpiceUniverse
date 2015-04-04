@@ -2,13 +2,13 @@
 	var engine = window.engine = {
 		init: function(params)
 		{
-			chapterHandler.init();
-			uisetup.init();
+			uisetup.init(params);
+			chapterHandler.init(params);
 		}
 	}
 })();
 
 /*When the document loads.*/
 $(function(){
-	engine.init();
+	engine.init({});
 });
