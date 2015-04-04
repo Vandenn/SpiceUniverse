@@ -15,13 +15,13 @@ var save = {
     cur_chapter: 1,
 	salt: 100,
 	pepper: 10, 
-	cumin: 2000,
+	cumin: 1999,
 	chap2rooms: [true, true, false],
 	gun: 1,
 	meds: -1,
     knife: -1,
     bomb: -1,
-    isBoss: true,
+    isBoss: false,
     defeatedBosses: [false, false, false]
 };
 
@@ -39,9 +39,7 @@ function loadGame()
 			$('#val_salt').text(save.salt);
 			$('#val_pepper').text(save.pepper);
 			$('#val_cumin').text(save.cumin);
-			chapterHandler.loadChapter(1, {
-				isLoad: true
-			});
+			chapterHandler.loadChapter(1);
 			break;
 		default:
 			chapterHandler.switchChapter(0);

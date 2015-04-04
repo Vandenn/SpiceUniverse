@@ -8,7 +8,7 @@ chapter[1] = {
 		chapter[1].createRoomButtons(params);
 		chapter[1].chap2events.autoIncrement(params);
 
-		if(params.isLoad)
+		if(global.isLoad)
 		{
 			chapter[1].chap2data.roomsUnlocked = save.chap2rooms;
 			chapter[1].refreshRooms(params);
@@ -21,6 +21,8 @@ chapter[1] = {
 			if(save.meds > -1) playerItems.push(items[itemType.meds][save.meds]);
 			if(save.knife > -1) playerItems.push(items[itemType.knife][save.knife]);
 			if(save.bomb > -1) playerItems.push(items[itemType.bomb][save.bomb]);
+
+			global.isLoad = false;
 		}
 		
 		if(chapter[1].chap2data.isBoss) rooms.switchRoom(chapter[1].chap2rooms, "Your Office");
@@ -236,9 +238,8 @@ chapter[1] = {
 		},
 	},
 	
-	loadJobs: function(params)
+	loadJobs: function()
 	{
-		chapter[1].becomeBoss(params);
 		$('.jobsListDiv').empty();
 		$('.jobsListDiv').append(new chapter[1].chap2jobs[0]()).append("<br />");
 		$('.jobsListDiv').append(new chapter[1].chap2jobs[1]()).append("<br />");
@@ -401,7 +402,7 @@ chapter[1] = {
 	chap2events: {
 		autoIncrement: function(params)
 		{
-			if(params.isLoad)
+			if(global.isLoad)
 			{
 				$('#resourceList li').eq(2).show();
 				global.saltIncrement = setInterval(function() 
@@ -420,6 +421,10 @@ chapter[1] = {
 						$('#val_pepper').text(cur_pepper);
 					}
 				}, 2000);
+				global.bossCheckInterval = setInterval(function()
+				{
+					chapter[1].becomeBoss(params);
+				}, 1000);
 			}
 			else
 			{
@@ -438,6 +443,10 @@ chapter[1] = {
 								cur_salt = cur_salt + 1;
 								$('#val_salt').text(cur_salt);
 							}, 5000);
+							global.bossCheckInterval = setInterval(function()
+							{
+								chapter[1].becomeBoss(params);
+							}, 1000);
 						}
 					})
 				);
@@ -498,7 +507,7 @@ chapter[1] = {
 	},
 
 	chap2jobs: [
-		function() { return new button.create({
+		function(params) { return new button.create({
 			text: "Job: Steal From Pedestrian",
 			id: "btn_jobs_stealFromPedestrian",
 			func: function()
@@ -553,6 +562,7 @@ chapter[1] = {
 	{
 		if(parseInt($('#val_cumin').text()) >= constants.bossCumin && !chapter[1].chap2data.isBoss)
 		{
+			clearInterval(global.bossCheckInterval);
 			chapter[1].chap2data.isBoss = true;
 			for(var i = 0; i < chapter[1].chap2data.roomsUnlocked.length; i++)
 			{
@@ -560,7 +570,7 @@ chapter[1] = {
 			}
 			chapter[1].refreshRooms(params);
 
-			if(!params.isLoad)
+			if(!global.isLoad)
 			{
 				button_array = [];
 				button_array.push(

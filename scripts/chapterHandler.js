@@ -20,12 +20,13 @@ var chapterHandler = {
 	switchChapter: function(chapterNumber)
 	{
 		$("main").empty();
-		chapter[chapterNumber].init({});
+		chapter[chapterNumber].init();
 	},
 
-	loadChapter: function(chapterNumber, params)
+	loadChapter: function(chapterNumber)
 	{
+		global.isLoad = true;
 		$("main").empty();
-		chapter[chapterNumber].init(params);
+		chapter[chapterNumber].init();
 	}
 };

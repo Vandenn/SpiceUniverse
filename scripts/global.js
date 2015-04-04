@@ -2,5 +2,7 @@ var global = {
 	saltIncrement: null,
 	pepperIncrement: null,
 	battleInterval: null,
-	devMode: true
+	bossCheckInterval: null,
+	devMode: true,
+	isLoad: false
 };
