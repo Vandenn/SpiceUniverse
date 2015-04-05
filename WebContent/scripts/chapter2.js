@@ -404,7 +404,7 @@ chapter[1] = {
 		{
 			if(global.isLoad)
 			{
-				$('#resourceList li').eq(2).show();
+				$('#resourceList li').eq(0).css({'opacity':1})
 				global.saltIncrement = setInterval(function() 
 				{
 					var cur_salt = parseInt($('#val_salt').text()); 
@@ -425,6 +425,7 @@ chapter[1] = {
 				{
 					chapter[1].becomeBoss(params);
 				}, 1000);
+				$('#resourceList li').eq(2).show();
 			}
 			else
 			{
