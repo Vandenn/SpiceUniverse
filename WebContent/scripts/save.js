@@ -109,7 +109,7 @@ function saveGame()
 		dataType: "json",
 		success: function(data) 
 		{
-			$("#gameSaved").text("Game Saved!");
+			
 		}
 	});
 }

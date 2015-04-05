@@ -39,7 +39,7 @@
 	-->
 	<body>
 		<header>
-			<form id = "accountButtons">
+			<form>
 				<ul id="manageList"> 
 					<span> Hello, 
 						<c:if test="${user!=null }">
@@ -50,12 +50,10 @@
 						</c:if>! 
 					</span>
 					<li> 
-						<button type = "submit" class="actionButton" onclick="saveGame();"> Save </button> 
+						<button id = "saveGameButton" type = "submit" class="actionButton" onclick="saveGame();"> Save </button> 
 					</li> 
 					<li> 
 						<button type = "submit" class="actionButton" onclick="form.action='LogoutController'; form.method='GET'"> Log-out </button> 
-					</li> 
-					<li id = "gameSaved">
 					</li>
 				</ul> 
 				<ul id="resourceList"> 
@@ -70,7 +68,7 @@
 		<div id = "log"></div>
 		<div id = "log-overlay"></div>
 		<script>
-			$("#accountButtons").submit(function(e)
+			$("#saveGameButton").submit(function(e)
 			{
 			    e.preventDefault;
 			});
