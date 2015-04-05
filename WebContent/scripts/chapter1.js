@@ -16,6 +16,9 @@ chapter[0] = {
 		 * for spice is clicked.
 		 */
 		button.setClick('btn_begForSpice', chapter[0].begForSpice);
+		
+		if(global.isLoad && save.salt > 0) $('#resourceList li').eq(0).css({'opacity':1});
+		global.isLoad = false;
 	},
 	
 	/**

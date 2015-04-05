@@ -48,7 +48,7 @@ public class User implements Serializable{
 		this.password = password;
 		this.cur_chapter = 0;
 		this.salt = 0;
-		this.pepper = 0;
+		this.pepper = 100;
 		this.cumin = 0;
 		this.roomA = false;
 		this.roomB = false;
@@ -290,25 +290,25 @@ public class User implements Serializable{
 	public void setBomb(int bomb) {
 		this.bomb = bomb;
 	}
-	public boolean isBoss() {
+	public boolean getIsBoss() {
 		return isBoss;
 	}
 	public void setBoss(boolean isBoss) {
 		this.isBoss = isBoss;
 	}
-	public boolean hasDefeatedBossA() {
+	public boolean getDefeatedBossA() {
 		return defeatedBossA;
 	}
 	public void setDefeatedBossA(boolean defeatedBossA) {
 		this.defeatedBossA = defeatedBossA;
 	}
-	public boolean hasDefeatedBossB() {
+	public boolean getDefeatedBossB() {
 		return defeatedBossB;
 	}
 	public void setDefeatedBossB(boolean defeatedBossB) {
 		this.defeatedBossB = defeatedBossB;
 	}
-	public boolean hasDefeatedBossC() {
+	public boolean getDefeatedBossC() {
 		return defeatedBossC;
 	}
 	public void setDefeatedBossC(boolean defeatedBossC) {

@@ -3,7 +3,8 @@
 		init: function(params)
 		{
 			uisetup.init(params);
-			chapterHandler.init(params);
+			//chapterHandler.init(params);
+			initGame();
 		}
 	}
 })();

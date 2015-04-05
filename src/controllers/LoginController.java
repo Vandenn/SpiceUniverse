@@ -45,7 +45,7 @@ public class LoginController extends HttpServlet {
 		User player = null;
 		if(db.userLogin(username, password)){
 			//login successful
-			player = new User(username, password);
+			player = db.getUserInfo(username, password);
 			HttpSession session = request.getSession();
 			session.setAttribute("user", player);
 			response.sendRedirect("game.jsp");

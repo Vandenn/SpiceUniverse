@@ -50,6 +50,7 @@ public class SaveController extends HttpServlet {
 		else{
 			//fail message
 		}
+		response.sendRedirect("game.jsp");
 		//redirect back to game screen
 	}
 

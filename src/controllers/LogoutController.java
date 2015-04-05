@@ -28,7 +28,7 @@ public class LogoutController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.getSession().invalidate();
-		
+		response.sendRedirect("index.jsp");
 		//redirect to gamescreen.jsp
 	}
 
