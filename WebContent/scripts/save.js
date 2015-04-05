@@ -58,5 +58,58 @@ function loadGame()
 
 function saveGame()
 {
+	save.salt = parseInt($('#val_salt').text());
+	save.pepper = parseInt($('#val_pepper').text());
+	save.cumin = parseInt($('#val_cumin').text());
+	save.chap2rooms = chapter[1].chap2data.roomsUnlocked;
+	for(var i = 0; i < playerItems.length; i++)
+	{
+		switch(playerItems[i].type)
+		{
+			case itemType.gun:
+				save.gun = getItemIndex(playerItems[i]);
+				break;
+			case itemType.meds:
+				save.meds = getItemIndex(playerItems[i]);
+				break;
+			case itemType.knife:
+				save.knife = getItemIndex(playerItems[i]);
+				break;
+			case itemType.bomb:
+				save.bomb = getItemIndex(playerItems[i]);
+				break;
+		}
+	}
+	save.isBoss = chapter[1].chap2data.isBoss;
+	save.defeatedBosses = chapter[1].chap2data.defeatedBosses;
 	
+	var savedata = {
+		"username": save.username,
+		"cur_chapter": save.cur_chapter.toString(),
+		"salt": save.salt.toString(),
+		"pepper": save.pepper.toString(), 
+		"cumin": save.cumin.toString(),
+		"chap2rooms1": save.chap2rooms[0].toString(),
+		"chap2rooms2": save.chap2rooms[1].toString(),
+		"chap2rooms3": save.chap2rooms[2].toString(),
+		"gun": save.gun.toString(),
+		"meds": save.meds.toString(),
+	    "knife": save.knife.toString(),
+	    "bomb": save.bomb.toString(),
+	    "isBoss": save.isBoss.toString(),
+	    "defeatedBosses1": save.defeatedBosses[0].toString(),
+	    "defeatedBosses2": save.defeatedBosses[1].toString(),
+	    "defeatedBosses3": save.defeatedBosses[2].toString()
+	};
+	
+	$.ajax({
+		type: "POST",
+		url: "SaveController",
+		data: savedata,
+		dataType: "json",
+		success: function(data) 
+		{
+			$("#gameSaved").text("Game Saved!");
+		}
+	});
 }

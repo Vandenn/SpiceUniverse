@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,6 +45,22 @@ public class SaveController extends HttpServlet {
 		DBHandler db= new DBHandler();
 		HttpSession session = request.getSession();
 		User player = (User) session.getAttribute("user");
+		player.setCur_chapter(Integer.parseInt(request.getParameter("cur_chapter")));
+		player.setSalt(Integer.parseInt(request.getParameter("salt")));
+		player.setPepper(Integer.parseInt(request.getParameter("pepper")));
+		player.setCumin(Integer.parseInt(request.getParameter("cumin")));
+		player.setRoomA(Boolean.parseBoolean(request.getParameter("chap2rooms[0]")));
+		player.setRoomB(Boolean.parseBoolean(request.getParameter("chap2rooms[1]")));
+		player.setRoomC(Boolean.parseBoolean(request.getParameter("chap2rooms[2]")));
+		player.setGun(Integer.parseInt(request.getParameter("gun")));
+		player.setMeds(Integer.parseInt(request.getParameter("meds")));
+		player.setKnife(Integer.parseInt(request.getParameter("knife")));
+		player.setBomb(Integer.parseInt(request.getParameter("bomb")));
+		player.setIsBoss(Boolean.parseBoolean(request.getParameter("isBoss")));
+		player.setDefeatedBossA(Boolean.parseBoolean(request.getParameter("defeatedBosses[0]")));
+		player.setDefeatedBossB(Boolean.parseBoolean(request.getParameter("defeatedBosses[0]")));
+		player.setDefeatedBossC(Boolean.parseBoolean(request.getParameter("defeatedBosses[1]")));
+		session.setAttribute("user", player);
 		if(db.updateUserInfo(player)){
 			//successful message
 		}

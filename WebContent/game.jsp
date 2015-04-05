@@ -39,7 +39,7 @@
 	-->
 	<body>
 		<header>
-			<form>
+			<form id = "accountButtons">
 				<ul id="manageList"> 
 					<span> Hello, 
 						<c:if test="${user!=null }">
@@ -50,11 +50,13 @@
 						</c:if>! 
 					</span>
 					<li> 
-						<button type = "submit" class="actionButton" onclick="form.action='SaveController'; form.method='POST'"> Save </button> 
+						<button type = "submit" class="actionButton" onclick="saveGame();"> Save </button> 
 					</li> 
 					<li> 
 						<button type = "submit" class="actionButton" onclick="form.action='LogoutController'; form.method='GET'"> Log-out </button> 
 					</li> 
+					<li id = "gameSaved">
+					</li>
 				</ul> 
 				<ul id="resourceList"> 
 					<li> Salt: <span id="val_salt">0</span>g </li> 
@@ -68,6 +70,10 @@
 		<div id = "log"></div>
 		<div id = "log-overlay"></div>
 		<script>
+			$("#accountButtons").submit(function(e)
+			{
+			    e.preventDefault;
+			});
 			function initGame()
 			{
 				if(${user == null} == false)

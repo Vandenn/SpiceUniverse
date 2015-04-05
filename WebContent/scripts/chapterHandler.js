@@ -21,6 +21,7 @@ var chapterHandler = {
 	switchChapter: function(chapterNumber)
 	{
 		$("main").empty();
+		if(chapter[chapterNumber]) save.cur_chapter = chapterNumber;
 		chapter[chapterNumber].init();
 	},
 
@@ -28,6 +29,7 @@ var chapterHandler = {
 	{
 		global.isLoad = true;
 		$("main").empty();
+		if(chapter[chapterNumber]) save.cur_chapter = chapterNumber;
 		chapter[chapterNumber].init();
 	}
 };

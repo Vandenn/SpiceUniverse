@@ -29,3 +29,15 @@ var items = [
 ];
 
 var playerItems = [];
+
+function getItemIndex(item)
+{
+	for(var i = 0; i < items[item.type].length; i++)
+	{
+		if(items[item.type][i].name == item.name)
+		{
+			return i;
+		}
+	}
+	return -1;
+}

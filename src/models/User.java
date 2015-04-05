@@ -293,7 +293,7 @@ public class User implements Serializable{
 	public boolean getIsBoss() {
 		return isBoss;
 	}
-	public void setBoss(boolean isBoss) {
+	public void setIsBoss(boolean isBoss) {
 		this.isBoss = isBoss;
 	}
 	public boolean getDefeatedBossA() {

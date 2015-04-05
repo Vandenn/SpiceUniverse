@@ -116,7 +116,7 @@ public class DBHandler {
 					+ ", cumin = " +player.getCumin()+ ", roomA = " +player.roomAToInt()+ ", roomB= " +player.roomBToInt()
 					+ ", roomC = " +player.roomCToInt()+ ", gun= " +player.getGun() + ", meds= " +player.getMeds()
 					+ ", knife= " +player.getKnife()+ ", bomb = " +player.getBomb()+ ", isBoss = " +player.isBossToInt()
-					+ ", defeatedBossA = " +player.defeatedBossAToInt()+ ", defeagtedBossB= " +player.defeatedBossBToInt()
+					+ ", defeatedBossA = " +player.defeatedBossAToInt()+ ", defeatedBossB= " +player.defeatedBossBToInt()
 					+ ", defeatedBossC = " +player.defeatedBossCToInt()
 					+ " WHERE username = '" + player.getUsername() +"' AND password = '" + player.getPassword() +"'"; 
 			
