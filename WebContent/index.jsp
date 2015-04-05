@@ -5,21 +5,26 @@
 	<head>
 		<link rel="shortcut icon" href="favicon.ico" />
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<!--Fonts-->
+	    <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,100' rel='stylesheet' type='text/css'>
+	    <link href='style/main.css' rel='stylesheet' type='text/css'>
 		<title>Spice Universe Login</title>
 	</head>
 	<body>
-		<h1>Spice Universe</h1>
-		Login:<br />
-		<form action="LoginController" method="POST">
-			Username: <input name="username"><br />
-			Password: <input name="password" type="password"><br />
-			<input type="submit" value="Login"><br />
+		<h1 id = "loginTitle">Spice Universe</h1>
+		
+		<form action="LoginController" method="POST" class = "formFormat">
+			Login:<br />
+			Username: <input name="username" class = "textInput"><br />
+			Password: <input name="password" type="password" class = "textInput"><br />
+			<input type="submit" value="Login" class = "actionButton"><br />
 		</form>
-		Register:<br />
-		<form action="RegisterController" method="POST">
-			Username: <input name="username"><br />
-			Password: <input name="password" type="password"><br />
-			<input type="submit" value="Register">
+		
+		<form action="RegisterController" method="POST" class = "formFormat">
+			Register:<br />
+			Username: <input name="username" class = "textInput"><br />
+			Password: <input name="password" type="password" class = "textInput"><br />
+			<input type="submit" value="Register" class = "actionButton">
 		</form>
 	</body>
 </html>
