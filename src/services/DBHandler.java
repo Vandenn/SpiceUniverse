@@ -18,11 +18,11 @@ public class DBHandler {
 		
 		//PLACE CODE FOR ACCESSING DB HERE
 		try{
-			if(!dbConnection.isValid(1))
+			if(dbConnection == null)
 				connectToDatabase();
 			
 			Statement statement = dbConnection.createStatement();
-			String dbQuery = "SELECT * FROM users WHERE username = '%" + user +"%'"; 
+			String dbQuery = "SELECT * FROM users WHERE username = '" + user +"'"; 
 			
 			ResultSet set = statement.executeQuery(dbQuery);
 			
@@ -43,14 +43,12 @@ public class DBHandler {
 	
 	public boolean userLogin(String user, String password){
 		
-		
 		//PLACE CODE FOR ACCESSING DB HERE
 		try{
-			if(!dbConnection.isValid(1))
+			if(dbConnection == null)
 				connectToDatabase();
-			
 			Statement statement = dbConnection.createStatement();
-			String dbQuery = "SELECT * FROM users WHERE username = '%" + user +"%' AND password = '%" + password +"%'"; 
+			String dbQuery = "SELECT * FROM users WHERE username = '" + user +"' AND password = '" + password +"'"; 
 			
 			ResultSet set = statement.executeQuery(dbQuery);
 			
@@ -77,11 +75,11 @@ public class DBHandler {
 			//login if fail return null
 		}
 		try{
-			if(!dbConnection.isValid(1))
+			if(dbConnection == null)
 				connectToDatabase();
 			
 			Statement statement = dbConnection.createStatement();
-			String dbQuery = "SELECT * FROM users WHERE username = '%" + user +"%' AND password = '%" + password +"%'"; 
+			String dbQuery = "SELECT * FROM users WHERE username = '" + user +"' AND password = '" + password +"'"; 
 			
 			ResultSet set = statement.executeQuery(dbQuery);
 			
@@ -108,7 +106,7 @@ public class DBHandler {
 			//login if fail return false
 		}
 		try{
-			if(!dbConnection.isValid(1))
+			if(dbConnection == null)
 				connectToDatabase();
 			
 			
@@ -120,9 +118,9 @@ public class DBHandler {
 					+ ", knife= " +player.getKnife()+ ", bomb = " +player.getBomb()+ ", isBoss = " +player.isBossToInt()
 					+ ", defeatedBossA = " +player.defeatedBossAToInt()+ ", defeagtedBossB= " +player.defeatedBossBToInt()
 					+ ", defeatedBossC = " +player.defeatedBossCToInt()
-					+ " WHERE username = '%" + player.getUsername() +"%' AND password = '%" + player.getPassword() +"%'"; 
+					+ " WHERE username = '" + player.getUsername() +"' AND password = '" + player.getPassword() +"'"; 
 			
-			statement.executeQuery(dbQuery);
+			statement.executeUpdate(dbQuery);
 			return true;
 			
 		}catch(Exception e){
@@ -137,20 +135,20 @@ public class DBHandler {
 	public boolean userRegister(String user, String password){
 		
 		//PLACE CODE FOR ACCESSING DB HERE
-		if(!isExistingUser(user))
+		if(!isExistingUser(user) && !user.isEmpty() && !password.isEmpty())
 			try{
-				if(!dbConnection.isValid(1))
+				if(dbConnection == null)
 					connectToDatabase();
 	
 				User register = new User(user,password);
 				Statement statement = dbConnection.createStatement();
 				String dbQuery = "INSERT INTO users"
-						+ " VALUES (%'" + register.getUsername() + "%', %'" + register.getPassword() + "%', %'" + register.getCur_chapter() 
-						+ "%', %'" + register.getSalt() + "%', %'" + register.getPepper() + "%', %'" + register.getCumin() + "%', %'" + register.isRoomA()
-						+ "%', %'" + register.isRoomB() + "%', %'" + register.isRoomC() + "%', %'" + register.getGun() + "%', %'" + register.getMeds()
-						+ "%', %'" + register.getKnife() + "%', %'" + register.getBomb() + "%', %'" + register.isBoss() + "%', %'" + register.hasDefeatedBossA()
-						+ "%', %'" + register.hasDefeatedBossB() + "%', %'" + register.hasDefeatedBossC() + "%');";
-				statement.executeQuery(dbQuery);
+						+ " VALUES ('" + register.getUsername() + "', '" + register.getPassword() + "', " + register.getCur_chapter() 
+						+ ", " + register.getSalt() + ", " + register.getPepper() + ", " + register.getCumin() + ", " + register.roomAToInt()
+						+ ", " + register.roomBToInt() + ", " + register.roomCToInt() + ", " + register.getGun() + ", " + register.getMeds()
+						+ ", " + register.getKnife() + ", " + register.getBomb() + ", " + register.isBossToInt() + ", " + register.defeatedBossAToInt()
+						+ ", " + register.defeatedBossBToInt() + ", " + register.defeatedBossCToInt() + ");";
+				statement.executeUpdate(dbQuery);
 				return true;
 			}catch(Exception e){
 				System.out.println(e.getMessage());
@@ -164,7 +162,7 @@ public class DBHandler {
 		try{
 		String url = "jdbc:mysql://localhost:3306/spiceuniverse";
 		Class.forName("com.mysql.jdbc.Driver");
-		dbConnection = DriverManager.getConnection(url, "root", "r5olb");
+		dbConnection = DriverManager.getConnection(url, "root", "p@ssword");
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());

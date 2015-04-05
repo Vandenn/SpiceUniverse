@@ -27,7 +27,7 @@ public class User implements Serializable{
 		this.password = null;
 		this.cur_chapter = 0;
 		this.salt = 0;
-		this.pepper = 0;
+		this.pepper = 100;
 		this.cumin = 0;
 		this.roomA = false;
 		this.roomB = false;

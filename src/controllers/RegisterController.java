@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import services.DBHandler;
 import models.User;
+import services.DBHandler;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class RegisterController
  */
-@WebServlet("/LoginController")
-public class LoginController extends HttpServlet {
+@WebServlet("/RegisterController")
+public class RegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public RegisterController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,7 +43,7 @@ public class LoginController extends HttpServlet {
 		String password = request.getParameter("password");
 		DBHandler db = new DBHandler();
 		User player = null;
-		if(db.userLogin(username, password)){
+		if(db.userRegister(username, password)){
 			//login successful
 			player = new User(username, password);
 			HttpSession session = request.getSession();

@@ -3,6 +3,6 @@ var global = {
 	pepperIncrement: null,
 	battleInterval: null,
 	bossCheckInterval: null,
-	devMode: true,
+	devMode: false,
 	isLoad: false
 };

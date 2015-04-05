@@ -7,7 +7,8 @@ var chapterHandler = {
 
 	officialInit: function(params)
 	{
-		chapter[0].init(params);
+		//chapter[0].init(params);
+		loadGame();
 	},
 
 	testingInit: function(params)
