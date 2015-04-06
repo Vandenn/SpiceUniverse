@@ -46,7 +46,7 @@
 							${user.username}
 						</c:if>
 						<c:if test="${user==null }">
-							Guest
+							<% response.sendRedirect("index.jsp"); %>
 						</c:if>! 
 					</span>
 					<li> 
