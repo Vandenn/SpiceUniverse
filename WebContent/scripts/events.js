@@ -89,6 +89,7 @@ var events = {
 				$('#val_pepper').text(ph);
 				if(params.failure) params.failure();
 				clearInterval(global.battleInterval);
+				global.battleInterval = null;
 				events.remove(battleId);
 			}
 			else
@@ -109,6 +110,7 @@ var events = {
 					$('#val_pepper').text(parseInt($('#player_health').text()));
 					if(params.success) params.success();
 					clearInterval(global.battleInterval);
+					global.battleInterval = null;
 					events.remove(battleId);
 				}
 				else
@@ -135,6 +137,7 @@ var events = {
 								$('#val_pepper').text(parseInt($('#player_health').text()));
 								if(params.success) params.success();
 								clearInterval(global.battleInterval);
+								global.battleInterval = null;
 								events.remove(battleId);
 							}
 							else
@@ -172,6 +175,7 @@ var events = {
 								$('#val_pepper').text(parseInt($('#player_health').text()));
 								if(params.success) params.success();
 								clearInterval(global.battleInterval);
+								global.battleInterval = null;
 								events.remove(battleId);
 							}
 							else
@@ -194,6 +198,7 @@ var events = {
 								$('#val_pepper').text(parseInt($('#player_health').text()));
 								if(params.success) params.success();
 								clearInterval(global.battleInterval);
+								global.battleInterval = null;
 								events.remove(battleId);
 							}
 							else

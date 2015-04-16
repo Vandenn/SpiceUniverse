@@ -285,6 +285,20 @@ header button
 	width: auto;
 }
 
+.streetMapDiv {
+	position: fixed;
+	padding: 10px;
+	left: 40px;
+	right: 10px;
+	top: 119px;
+	bottom: 80px;
+	margin-left: 20%;
+	background: url(../img/spiceuniverse_5_map-01.png) no-repeat right;
+	background-size: contain;
+	background-clip: content-box;
+	background-position: left 20px;
+}
+
 .jobsDiv {
 	position: fixed;
 	padding: 10px;

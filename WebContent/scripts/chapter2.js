@@ -134,7 +134,33 @@ chapter[1] = {
 				$('.roomContentDiv').append(uisetup.pageTitle({
 					text: "Street Map"
 				}));
+				$('.roomContentDiv').append(new uisetup.createDiv({
+					divClass: "streetMapDiv",
+					divId: "chap2_map_div"
+				}));
 				$('.roomContentDiv').append(uisetup.buttonArea());
+
+				$('#buttonAreaDiv')
+					.append(new button.create({
+						text: "Carlos Juan Panichina, Alpha Slayer Gang Boss",
+						id: "btn_boss1"
+					})).append("<br />");
+
+				$('#buttonAreaDiv')
+					.append(new button.create({
+						text: "Hurishima Fujayaki, West Dragon Gang Boss",
+						id: "btn_boss2"
+					})).append("<br />");
+
+				$('#buttonAreaDiv')
+					.append(new button.create({
+						text: "King Candy, The Candy King",
+						id: "btn_boss3"
+					})).append("<br />");
+
+				button.setClick('btn_boss1', chapter[1].chap2events.battle2);
+				button.setClick('btn_boss2', chapter[1].chap2events.battle3);
+				button.setClick('btn_boss3', chapter[1].chap2events.battle4);
 			}
 		},
 		'Jobs': {
@@ -415,7 +441,7 @@ chapter[1] = {
 				global.pepperIncrement = setInterval(function() 
 				{
 					var cur_pepper = parseInt($('#val_pepper').text());
-					if(cur_pepper < constants.pepperMax && global.battleInterval)
+					if(cur_pepper < constants.pepperMax && !global.battleInterval)
 					{
 						cur_pepper = cur_pepper + 1;
 						$('#val_pepper').text(cur_pepper);
@@ -465,7 +491,7 @@ chapter[1] = {
 			global.pepperIncrement = setInterval(function() 
 			{
 				var cur_pepper = parseInt($('#val_pepper').text());
-				if(cur_pepper < constants.pepperMax && global.battleInterval)
+				if(cur_pepper < constants.pepperMax && !global.battleInterval)
 				{
 					cur_pepper = cur_pepper + 1;
 					$('#val_pepper').text(cur_pepper);
@@ -497,7 +523,124 @@ chapter[1] = {
 						$('#val_pepper').text(0);
 					}
 				}));
-		}
+		},
+		battle2: function(params)
+		{
+			$('#resourceList li').eq(1).show();
+			global.pepperIncrement = setInterval(function() 
+			{
+				var cur_pepper = parseInt($('#val_pepper').text());
+				if(cur_pepper < constants.pepperMax && !global.battleInterval)
+				{
+					cur_pepper = cur_pepper + 1;
+					$('#val_pepper').text(cur_pepper);
+				}
+			}, 2000);
+			$('body')
+				.append(new events.createBattle({
+					text: "You dare challenge me, Carlos Juan?!",
+					id: "evt_battle2",
+					enemy_name: "Carlos Juan Panichiña",
+					enemy_health: 200000,
+					enemy_damage: 30,
+					enemy_speed: 2000,
+					success: function()
+					{
+						eventLog.logStatus("You have conquered the Alpha Slayer Gang!");
+						var cur_salt = parseInt($('#val_salt').text()); 
+						cur_salt = cur_salt + Math.floor(Math.random() * 1000 + 4000);
+						$('#val_salt').text(cur_salt);
+						var cur_cumin = parseInt($('#val_cumin').text()); 
+						cur_cumin = cur_cumin + Math.floor(Math.random() * 2000 + 3000);
+						$('#val_cumin').text(cur_cumin);
+						chapter[1].loadJobs();
+						chapter[1].chap2data.defeatedBosses[0] = true;
+					},
+					failure: function()
+					{
+						eventLog.logStatus("You have lost.");
+						$('#val_pepper').text(0);
+					}
+				}));
+		},
+		battle3: function(params)
+		{
+			$('#resourceList li').eq(1).show();
+			global.pepperIncrement = setInterval(function() 
+			{
+				var cur_pepper = parseInt($('#val_pepper').text());
+				if(cur_pepper < constants.pepperMax && !global.battleInterval)
+				{
+					cur_pepper = cur_pepper + 1;
+					$('#val_pepper').text(cur_pepper);
+				}
+			}, 2000);
+			$('body')
+				.append(new events.createBattle({
+					text: "*Speaks Japanese*",
+					id: "evt_battle3",
+					enemy_name: "Hurishima Fujayaki",
+					enemy_health: 500000,
+					enemy_damage: 45,
+					enemy_speed: 2500,
+					success: function()
+					{
+						eventLog.logStatus("You have conquered the West Dragon Gang, subtitles please!");
+						var cur_salt = parseInt($('#val_salt').text()); 
+						cur_salt = cur_salt + Math.floor(Math.random() * 2000 + 6000);
+						$('#val_salt').text(cur_salt);
+						var cur_cumin = parseInt($('#val_cumin').text()); 
+						cur_cumin = cur_cumin + Math.floor(Math.random() * 3000 + 5000);
+						$('#val_cumin').text(cur_cumin);
+						chapter[1].loadJobs();
+						chapter[1].chap2data.defeatedBosses[1] = true;
+					},
+					failure: function()
+					{
+						eventLog.logStatus("You have lost.");
+						$('#val_pepper').text(0);
+					}
+				}));
+		},
+		battle4: function(params)
+		{
+			$('#resourceList li').eq(1).show();
+			global.pepperIncrement = setInterval(function() 
+			{
+				var cur_pepper = parseInt($('#val_pepper').text());
+				if(cur_pepper < constants.pepperMax && !global.battleInterval)
+				{
+					cur_pepper = cur_pepper + 1;
+					$('#val_pepper').text(cur_pepper);
+				}
+			}, 2000);
+			$('body')
+				.append(new events.createBattle({
+					text: "Trampoline. Candy King. Give me your everything!",
+					id: "evt_battle3",
+					enemy_name: "Candy-covered self-obsessed kid",
+					enemy_health: 1000000,
+					enemy_damage: 49,
+					enemy_speed: 1500,
+					success: function()
+					{
+						eventLog.logStatus("You have defeated... don't eat all the candy!");
+						var cur_salt = parseInt($('#val_salt').text()); 
+						cur_salt = cur_salt + Math.floor(Math.random() * 5000 + 10000);
+						$('#val_salt').text(cur_salt);
+						var cur_cumin = parseInt($('#val_cumin').text()); 
+						cur_cumin = cur_cumin + Math.floor(Math.random() * 7000 + 8000);
+						$('#val_cumin').text(cur_cumin);
+						chapter[1].loadJobs();
+						chapter[1].chap2data.defeatedBosses[2] = true;
+					},
+					failure: function()
+					{
+						eventLog.logStatus("You have lost.");
+						$('#val_pepper').text(0);
+					}
+				}));
+		},
 	},
 
 	chap2data: {
