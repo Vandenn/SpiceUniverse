@@ -28,7 +28,10 @@
 			Register:<br />
 			Username: <input name="username" class = "textInput"><br />
 			Password: <input name="password" type="password" class = "textInput"><br />
-			<input type="submit" value="Register" class = "actionButton">
+			<input type="submit" value="Register" class = "actionButton"><br />
+			<c:if test = "${registerErr == true}">
+				Username/password unavailable!<br />
+			</c:if>
 		</form>
 	</body>
 </html>

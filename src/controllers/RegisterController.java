@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -51,7 +52,10 @@ public class RegisterController extends HttpServlet {
 			response.sendRedirect("game.jsp");
 		}
 		else{
-			response.sendRedirect("index.jsp");
+			request.setAttribute("registerErr", true);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 
