@@ -138,21 +138,24 @@ chapter[1] = {
 					divClass: "streetMapDiv",
 					divId: "chap2_map_div"
 				}));
-				$('.roomContentDiv').append(uisetup.buttonArea());
-
-				$('#buttonAreaDiv')
+				$('.streetMapDiv').append(new uisetup.createDiv({
+					divClass: "streetMapListDiv",
+					divId: "chap2_map_list_div"
+				}));
+				
+				$('.streetMapListDiv')
 					.append(new button.create({
 						text: "Carlos Juan Panichina, Alpha Slayer Gang Boss",
 						id: "btn_boss1"
 					})).append("<br />");
 
-				$('#buttonAreaDiv')
+				$('.streetMapListDiv')
 					.append(new button.create({
 						text: "Hurishima Fujayaki, West Dragon Gang Boss",
 						id: "btn_boss2"
 					})).append("<br />");
 
-				$('#buttonAreaDiv')
+				$('.streetMapListDiv')
 					.append(new button.create({
 						text: "King Candy, The Candy King",
 						id: "btn_boss3"
@@ -346,8 +349,15 @@ chapter[1] = {
 			$('#inventoryItemDesc').text("Description: " + item.desc ? item.desc : "N/A");
 			
 			if($('.inventoryDescDiv').is(':visible')) {
-				$(this).removeClass('active');
 				$('.inventoryDescDiv').hide("slide", {direction: "left"});
+				if($(this).hasClass('active'))
+				{
+					$(this).removeClass('active');
+				} else {
+					$('.inventoryListDiv button').removeClass('active');
+					$(this).addClass('active');
+					$('.inventoryDescDiv').show("slide", {direction: "left"});
+				}
 			}
 			else {
 				$(this).addClass('active');
@@ -371,9 +381,56 @@ chapter[1] = {
 			$('#storeItemDesc').text("Description: " + item.desc ? item.desc : "N/A");
 			
 			if($('.blackMarketDescDiv').is(':visible')) {
-				$(this).removeClass('active');
 				$('.blackMarketDescDiv').hide("slide", {direction: "right"});
 				$('#storeItemName button').remove();
+				if($(this).hasClass('active')) 
+				{
+					$(this).removeClass('active');
+				} else {
+					$('.blackMarketItemsDiv button').removeClass('active');
+					$(this).addClass('active');
+					$('.blackMarketDescDiv').show("slide", {direction: "right"});
+					$('#storeItemName').append(new button.create({
+							text: item.name ? "Buy " + item.name : "Error",
+							id: "btn_store_buy",
+							func: function()
+							{
+								var isLower = false;
+								var sameItemIndex = -1;
+								for(var i = 0; i < playerItems.length; i++)
+								{
+									/*check if an item in the player's inventory is the same type as the current item*/
+									if(playerItems[i].type == item.type)
+									{
+										sameItemIndex = i;
+										/*If item being bought is lower or equal to current player item*/
+										if(playerItems[i].req >= item.req)
+										{
+											isLower = true;
+											eventLog.logStatus("You already have a better item!");
+											break;
+										}
+									}
+								}
+								if(!isLower)
+								{
+									if(parseInt($('#val_salt').text()) > item.price)
+									{
+										eventLog.logStatus("You now have the " + item.name + "!");
+										if (sameItemIndex != -1) playerItems.splice(sameItemIndex, 1);
+										playerItems.push(item);
+										var cur_salt = parseInt($('#val_salt').text()); 
+										cur_salt = cur_salt - item.price;
+										$('#val_salt').text(cur_salt);
+									}
+									else
+									{
+										eventLog.logStatus("You do not have enough salt.");
+									}
+								}
+							}
+						}));
+				}
 			}
 			else {
 				$(this).addClass('active');
