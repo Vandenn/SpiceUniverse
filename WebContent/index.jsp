@@ -14,20 +14,20 @@
 	<body>
 		<h1 id = "loginTitle">Spice Universe</h1>
 		
-		<form action="LoginController" method="POST" class = "formFormat">
+		<form action="LoginController" method="POST" class = "loginFormFormat">
 			Login:<br />
 			Username: <input name="username" class = "textInput"><br />
-			Password: <input name="password" type="password" class = "textInput"><br />
+			Password: <input name="password" type="password" class = "textInput"><br /><br />
 			<input type="submit" value="Login" class = "actionButton"><br />
 			<c:if test = "${loginErr == true}">
 				Wrong username/password!<br />
 			</c:if>
 		</form>
 		
-		<form action="RegisterController" method="POST" class = "formFormat">
+		<form action="RegisterController" method="POST" class = "registerFormFormat">
 			Register:<br />
 			Username: <input name="username" class = "textInput"><br />
-			Password: <input name="password" type="password" class = "textInput"><br />
+			Password: <input name="password" type="password" class = "textInput"><br /><br />
 			<input type="submit" value="Register" class = "actionButton"><br />
 			<c:if test = "${registerErr == true}">
 				Username/password unavailable!<br />

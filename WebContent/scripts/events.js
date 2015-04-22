@@ -74,10 +74,10 @@ var events = {
 
 		if(params.text) objText.text(params.text);
 		obj.attr("id", battleId);
-
-		playerDiv.append("<span>Player</span><br />");
+		
+		playerDiv.append("<span><b>Player</b></span><br />");
 		playerDiv.append("<span id = \"player_health\">" + parseInt($('#val_pepper').text()) + "</span>/" + constants.pepperMax + " pepper <br />");
-		enemyDiv.append("<span>" + (params.enemy_name ? params.enemy_name : "Enemy") + "</span><br />");
+		enemyDiv.append("<span><b>" + (params.enemy_name ? params.enemy_name : "Enemy") + "</b></span><br />");
 		enemyDiv.append("<span id = \"enemy_health\">" + (params.enemy_health ? params.enemy_health : 100).toString() + "</span>/" + (params.enemy_health ? params.enemy_health : 100).toString() + " pepper <br />");
 
 		global.battleInterval = setInterval(function(){
