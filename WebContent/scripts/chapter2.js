@@ -597,7 +597,7 @@ chapter[1] = {
 				.append(new events.createBattle({
 					text: "You dare challenge me, Carlos Juan?!",
 					id: "evt_battle2",
-					enemy_name: "Carlos Juan Panichiña",
+					enemy_name: "Carlos Juan Panichina",
 					enemy_health: 200000,
 					enemy_damage: 30,
 					enemy_speed: 2000,
